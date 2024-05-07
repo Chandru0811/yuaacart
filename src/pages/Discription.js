@@ -1,11 +1,17 @@
 import React, { useState } from "react";
-import Laptop from "../assets/laptop.jpg";
-import product1 from "../assets/product1.webp";
-import product2 from "../assets/product2.jpg";
+// import Laptop from "../assets/laptop.jpg";
+// import product1 from "../assets/product1.webp";
+// import product2 from "../assets/product2.jpg";
+import pro1 from "../assets/pro1.jpg";
+import pro2 from "../assets/pro2.jpg";
+import pro3 from "../assets/pro3.jpg";
+import pro4 from "../assets/pro4.jpg";
+import pro5 from "../assets/pro5.jpg";
+import pro6 from "../assets/pro6.jpg";
 import { Link } from "react-router-dom";
 
 export default function Discription() {
-  const [mainImage, setMainImage] = useState(Laptop);
+  const [mainImage, setMainImage] = useState(pro1);
 
   const handleChange = (image) => {
     setMainImage(image);
@@ -17,23 +23,48 @@ export default function Discription() {
         Cache, 4.20GHz) 8GB Ram I 512GB
       </h3>
       <div className="row m-5">
-        <div className="col-md-6 col-12">
-          <img src={mainImage} alt="WWG" className="img-fluid " />
+        <div className="col-md-6 col-12 ">
+        <div className="d-flex justify-content-center align-items-center "
+                style={{ height: "250px" }}>
+            <img src={mainImage} alt="WWG" className="img-fluid "  style={{maxHeight: "95%"}}/>
+          </div>
           <div
-            className=" d-flex pt-3 "
+            className=" d-flex pt-3 gap-2"
             style={{ width: "50px", height: "auto" }}
           >
             <img
-              src={product1}
+              src={pro2}
               alt="Product 1"
               className="img-fluid"
-              onClick={() => handleChange(product1)}
+              style={{cursor: 'pointer'}}
+              onClick={() => handleChange(pro2)}
             />
             <img
-              src={product2}
+              src={pro3}
               alt="Product 2"
               className="img-fluid"
-              onClick={() => handleChange(product2)}
+              style={{cursor: 'pointer'}}
+              onClick={() => handleChange(pro3)}
+            />
+            <img
+              src={pro4}
+              alt="Product 2"
+              className="img-fluid"
+              onClick={() => handleChange(pro4)}
+            />
+            <img
+              src={pro5}
+              alt="Product 2"
+              className="img-fluid"
+              style={{cursor: 'pointer'}}
+              onClick={() => handleChange(pro5)}
+            />
+            <img
+              src={pro6}
+              alt="Product 2"
+              className="img-fluid"
+              style={{cursor: 'pointer'}}
+              onClick={() => handleChange(pro6)}
             />
           </div>
         </div>
@@ -60,15 +91,31 @@ export default function Discription() {
           ></input>
           <div className=" d-flex gap-3 pt-3 ">
             <Link to="/cart">
-            <button className="btn btn-primary ">Add To Card</button>
+            <button className="btn "style={{backgroundColor:"rgb(0 107 255)",color:"white"}}>Add To Cart</button>
             </Link>
             
             <Link to="/checkout">
-            <button className="btn btn-warning ">Buy Now</button>
+            <button className="btn" style={{backgroundColor:"#18b5fc",color:"white"}}>Buy Now</button>
             </Link>
           </div>
         </div>
       </div>
+      <h3>Description</h3>
+      <p>Here is the detailed specification of the laptop you provided:</p>
+      <ul>
+        <li>Processor: 8th Gen Intel Core i7-8650U (Quad-Core, 8MB Cache, 4.20GHz)</li>
+        <li>RAM: 8GB</li>
+        <li>Storage: 512GB NVME SSD</li>
+        <li>Display: 13.3″ FHD TOUCH Display</li>
+        <li>Camera: Dual Camera</li>
+        <li>Operating System: Windows 10 Pro -VPro Enabled</li>
+        <li>Warranty: 1 Year</li>
+        <li>Accessories Warranty: 90 Days</li>
+        </ul>
+        <p>Please let me know if you need any further information or assistance.</p>
+
+        <h3>Related products</h3>
+        
     </div>
   );
 }
