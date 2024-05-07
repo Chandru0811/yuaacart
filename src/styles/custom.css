@@ -3,10 +3,16 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+.NavBar-Component {
+  position: sticky;
+  top: 0;
+  z-index: 999;
+}
 .cart-page {
   display: flex;
   flex-direction: column;
-  min-height: 100vh; 
+  min-height: 100vh;
 }
 
 .header {
@@ -23,29 +29,28 @@
   text-align: center;
 }
 
-.card-body {
-  border-top: 2px solid #c9c3c3; 
-}
+/* .card-body {
+  border-top: 2px solid #c9c3c3;
+} */
 .action {
-  cursor: pointer; 
+  cursor: pointer;
 }
 
 .action:hover {
-  color: blue; 
-  text-decoration: underline; 
+  color: blue;
+  text-decoration: underline;
 }
 .custom-btn {
   color: #fff !important;
-  background-color: #6c757d !important; 
- 
+  background-color: #6c757d !important;
 
   transition: color 0.3s, background-color 0.3s, border-color 0.3s;
 }
 
 .custom-btn:hover {
-  color: #fff !important; 
+  color: #fff !important;
   background-color: #dc3545 !important;
-  border-color: #dc3545 !important; 
+  border-color: #dc3545 !important;
 }
 
 .heading {
@@ -62,29 +67,29 @@
   bottom: -2px;
   width: 0;
   height: 2px;
-  background-color: transparent; 
-  transition: width 0.3s ease; 
+  background-color: transparent;
+  transition: width 0.3s ease;
 }
 
 .heading:hover::after,
 .heading.active::after {
-  width: 100%; 
-  background-color: #18b5fc; 
+  width: 100%;
+  background-color: #18b5fc;
 }
 
 .heading:hover {
-  color: #18b5fc; 
+  color: #18b5fc;
 }
 .pagination button.active {
   border-color: #06affd;
   background: #00b7ff;
   color: #ffffff;
 }
-.link-style{
+.link-style {
   text-decoration: none;
 }
 
-.link-style:hover{
+.link-style:hover {
   color: rgb(255, 102, 0);
-  text-decoration:underline;
+  text-decoration: underline;
 }

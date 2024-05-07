@@ -9,6 +9,7 @@ import pro4 from "../assets/pro4.jpg";
 import pro5 from "../assets/pro5.jpg";
 import pro6 from "../assets/pro6.jpg";
 import { Link } from "react-router-dom";
+import ProductList from "./Products/ProductCarouselList";
 
 export default function Discription() {
   const [mainImage, setMainImage] = useState(pro1);
@@ -17,8 +18,9 @@ export default function Discription() {
     setMainImage(image);
   };
   return (
-    <div className=" container">
-      <h3>
+    <div className="container-fluid">
+     <div className="container">
+     <h3>
         DELL LATITUDE 7390 TOUCH 8th Gen Intel® Core™ i7-8650U (Quad-Core, 8MB
         Cache, 4.20GHz) 8GB Ram I 512GB
       </h3>
@@ -113,9 +115,12 @@ export default function Discription() {
         <li>Accessories Warranty: 90 Days</li>
         </ul>
         <p>Please let me know if you need any further information or assistance.</p>
+     </div>
 
+        <div className="px-1 py-4">
         <h3>Related products</h3>
-        
+        <ProductList />
+        </div>
     </div>
   );
 }

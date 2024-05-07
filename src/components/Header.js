@@ -9,7 +9,7 @@ import { IoCartOutline } from "react-icons/io5";
 import { Link } from 'react-router-dom';
 import Profile from './Profile';
 import { useState } from 'react';
-import { CloseButton } from 'react-bootstrap';
+import { CloseButton, NavLink } from 'react-bootstrap';
 
 function Header() {
   const expand = "lg"
@@ -20,7 +20,7 @@ function Header() {
   console.log("Offcanvas",Offcanvas.defaultProps)
   return (
     <>
-       <Navbar key={expand} expand={expand} className=" mb-3"  style={{backgroundColor:"#ebf6ff"}}>
+       <Navbar key={expand} expand={expand} className=" mb-3 NavBar-Component"  style={{backgroundColor:"#ebf6ff"}}>
           <Container fluid>
           <Navbar.Brand>
           <Link to="/">
@@ -42,10 +42,10 @@ function Header() {
               <Offcanvas.Body className=''style={{marginRight:"10%"}}>
                 <Nav className="justify-content-end flex-grow-1 gap-2 ">
                 <Nav.Link onClick={handleProfileShow} className='heading'>My Account</Nav.Link>
-                  <Nav.Link ><Link to={"/checkout"}className='heading'>Checkout</Link></Nav.Link>
-                  <Nav.Link className='heading'>FAQ</Nav.Link>
-                  <Nav.Link className='heading'>Contact us</Nav.Link>
-                  <NavDropdown className='heading'
+                  <Nav.Link ><Link to={"/checkout"}className='heading pb-2'>Checkout</Link></Nav.Link>
+                  <NavLink className='heading'>FAQ</NavLink>
+                  <Nav.Link ><Link to={"/contactus"}className='heading pb-2'>Contact us</Link></Nav.Link>
+                  <NavDropdown 
                     title={<FaRegUser className='heading'/>}
                     id={`offcanvasNavbarDropdown-expand-${expand}`}
                    align="start"
@@ -54,7 +54,7 @@ function Header() {
                     <NavDropdown.Item><Link to="/login">Login</Link></NavDropdown.Item>
                   
                   </NavDropdown>
-                  <Nav.Link className='heading'><IoCartOutline size={20}/></Nav.Link>
+                  <Nav.Link><Link to="/cart"><IoCartOutline className='heading' size={20}/></Link></Nav.Link>
                  
                 </Nav>
                 
