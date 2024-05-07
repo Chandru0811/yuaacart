@@ -8,6 +8,7 @@ import leftImage2 from "../assets/image_2024_04_09T09_17_20_809Z.png";
 import rightImage2 from "../assets/image_2024_04_09T09_17_20_810Z.png";
 import smartimg from "../assets/gitignore.png";
 import advimage from "../assets/image_2024_05_06T13_08_11_079Z.png";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   const { productList } = useContext(ProductData);
@@ -86,7 +87,8 @@ const Home = () => {
         itemClass="carousel-item-padding-40-px container-fluid"
       >
         {sliderImageUrl.map((images, index) => (
-          <div className="container-fluid">
+         <Link to="/discription">
+           <div className="container-fluid">
             <div className="row " key={index}>
               <div className="col-12">
                 <img
@@ -97,6 +99,7 @@ const Home = () => {
               </div>
             </div>
           </div>
+         </Link>
         ))}
       </Carousel>
       <div className="my-5">
@@ -121,7 +124,8 @@ const Home = () => {
             // itemClass="carousel-item-padding-40-px"
           >
             {productList.map((product) => (
-              <div key={product.id} className="product-item card  m-1 ">
+              <Link to="/discription" style={{textDecoration: 'none'}}>
+                <div key={product.id} className="product-item card h-100 ">
                 <img src={product.image} alt={product.name} />
                 <div class="card-body">
                   <h4 className="card-title">{product.name}</h4>
@@ -131,6 +135,7 @@ const Home = () => {
                   </p>
                 </div>
               </div>
+              </Link>
             ))}
           </Carousel>
         </div>

@@ -1,16 +1,16 @@
 import React from "react";
 import Laps from "../assets/Laps.png";
 import "../styles/custom.css";
+import { Link } from "react-router-dom";
 
 function Cart() {
   return (
     <div className="cart-page">
-      <header className="header">Header Content Goes Here</header>
       <div className="cart-container card-body shadow-lg">
         <div className="row mt-3 gx-0 ">
           <div className="d-flex justify-content-between">
             <h3>PRODUCT</h3>
-            <h3>CART TOTALS</h3>
+            <h3>CART TOTAL</h3>
           </div>
         </div>
         <div className="row gx-0 ">
@@ -51,7 +51,7 @@ function Cart() {
             </div> */}
           </div>
 
-          <div className=" col-md-3 col-12 card-body shadow-lg justify-content-center">
+          <div className=" col-md-3 col-12 card-body shadow-lg justify-content-center p-4">
           <p className="mb-0">Subtotal (1 item): <strong>₹3,69,990.00</strong></p>
 
             <hr />
@@ -63,13 +63,14 @@ function Cart() {
               <h5>Total</h5>{" "}
               <h5 className="d-flex justify-content-end">₹14,566.00</h5>
             </div>
+            <Link to="/checkout">
             <p className="d-flex justify-content-center ">
               Proceed to Checkout
             </p>
+            </Link>
           </div>
         </div>
       </div>
-      <footer className="footer">Footer Content Goes Here</footer>
     </div>
   );
 }

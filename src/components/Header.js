@@ -6,15 +6,18 @@ import Offcanvas from 'react-bootstrap/Offcanvas';
 import Logo from '../assets/Yuaacart-Logo.png'
 import { FaRegUser } from "react-icons/fa";
 import { IoCartOutline } from "react-icons/io5";
+import { Link } from 'react-router-dom';
 
 function Header() {
   const expand = "lg"
   return (
     <>
-       <Navbar key={expand} expand={expand} className=" mb-3">
+       <Navbar key={expand} expand={expand} className=" mb-3"  style={{backgroundColor:"#ebf6ff"}}>
           <Container fluid>
-          <Navbar.Brand href="#">
+          <Navbar.Brand>
+          <Link to="/">
             <img src={Logo} alt="WWG" className="img-fluid " style={{ width: '150px', height: 'auto' }}  />
+            </Link>
           </Navbar.Brand>
             <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`} />
             <Navbar.Offcanvas
@@ -29,16 +32,17 @@ function Header() {
               </Offcanvas.Header>
               <Offcanvas.Body className=''style={{marginRight:"10%"}}>
                 <Nav className="justify-content-end flex-grow-1 gap-2 ">
-                  <Nav.Link href="#action1">HP Laptops</Nav.Link>
-                  <Nav.Link >DELL Laptops</Nav.Link>
-                  <Nav.Link >LENOVO Laptops</Nav.Link>
+                  <Nav.Link href="#action1">My account</Nav.Link>
+                  <Nav.Link >Checkout</Nav.Link>
+                  <Nav.Link >FAQ</Nav.Link>
+                  <Nav.Link >Contact us</Nav.Link>
                   <NavDropdown
                     title={<FaRegUser />}
                     id={`offcanvasNavbarDropdown-expand-${expand}`}
                    align="start"
                     
                   >
-                    <NavDropdown.Item >Logout</NavDropdown.Item>
+                    <NavDropdown.Item><Link to="/login">Login</Link></NavDropdown.Item>
                   
                   </NavDropdown>
                   <Nav.Link ><IoCartOutline /></Nav.Link>

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Laptop from "../assets/laptop.jpg";
 import product1 from "../assets/product1.webp";
 import product2 from "../assets/product2.jpg";
+import { Link } from "react-router-dom";
 
 export default function Discription() {
   const [mainImage, setMainImage] = useState(Laptop);
@@ -58,8 +59,13 @@ export default function Discription() {
             defaultValue="1"
           ></input>
           <div className=" d-flex gap-3 pt-3 ">
+            <Link to="/cart">
             <button className="btn btn-primary ">Add To Card</button>
+            </Link>
+            
+            <Link to="/checkout">
             <button className="btn btn-warning ">Buy Now</button>
+            </Link>
           </div>
         </div>
       </div>
