@@ -5,7 +5,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Cart from "./pages/Cart";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import Discription from "./pages/Discrption";
+import Discription from "./pages/Discription";
 import Signin from "./pages/Signin";
 import Login from "./pages/Login";
 import Checkout from "./pages/Checkout";
