@@ -1,14 +1,17 @@
 import React from "react";
 import Home from "./components/Home";
-import { Products } from "./pages/Products";
+import { Products } from "./pages/Products/Products";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Cart from "./pages/Cart";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Discription from "./pages/Discription";
-import Signin from "./pages/Signin";
+import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import Checkout from "./pages/Checkout";
+import ProductList from "./pages/Products/ProductList";
+import "./styles/custom.css"
+import Contactus from "./pages/Contactus";
 
 function App() {
   return (
@@ -16,15 +19,19 @@ function App() {
       <div className="App">
         <BrowserRouter>
           <Header />
+          <div style={{minHeight:"90vh"}}>
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/productlist" element={<ProductList />} />
             <Route path="*" element={<Home />} />
-            <Route path="/register" element={<Signin />} />
+            <Route path="/register" element={<Signup />} />
             <Route path="/login" element={<Login />} />
             <Route path="/checkout" element={<Checkout />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/discription" element={<Discription />} />
+            <Route path="/contactus" element={<Contactus />} />
           </Routes>
+          </div>
           <Footer />
         </BrowserRouter>
       </div>
