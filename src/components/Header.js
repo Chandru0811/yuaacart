@@ -42,7 +42,7 @@ function Header() {
               <Offcanvas.Body className=''style={{marginRight:"10%"}}>
                 <Nav className="justify-content-end flex-grow-1 gap-2 ">
                 <Nav.Link onClick={handleProfileShow} className='heading'>My Account</Nav.Link>
-                  <Nav.Link className='heading'><Link to={"/checkout"}>Checkout</Link></Nav.Link>
+                  <Nav.Link ><Link to={"/checkout"}className='heading'>Checkout</Link></Nav.Link>
                   <Nav.Link className='heading'>FAQ</Nav.Link>
                   <Nav.Link className='heading'>Contact us</Nav.Link>
                   <NavDropdown className='heading'
