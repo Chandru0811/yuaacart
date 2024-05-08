@@ -14,25 +14,25 @@ function Signup() {
         <div className='card bg-white my-4 mx-auto p-3 ' style={{ maxWidth: '20rem' }}>
           <h3 className='w-100 d-flex flex-column'>Create Account</h3>
           <div className="form-group mt-2">
-            <p>Eneter Your UserName</p>
+            <p>Enter Your UserName</p>
             <input
               type="text"
               className="form-control "></input>
           </div>
           <div className="form-group mt-2">
-            <p>Eneter Your Email</p>
+            <p>Enter Your Email</p>
             <input
               type="text"
               className="form-control"></input>
           </div>
           <div className="form-group mt-2">
-            <p>Eneter Your Password</p>
+            <p>Enter Your Password</p>
             <input
               type="text"
               className="form-control"></input>
           </div>
           <div className="form-group mt-2">
-            <p>Eneter Your Confirm Password</p>
+            <p>Enter Your Confirm Password</p>
             <input
               type="text"
               className="form-control"></input>
