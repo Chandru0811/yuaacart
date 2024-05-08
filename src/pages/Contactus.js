@@ -10,11 +10,7 @@ function Contactus() {
               <b>Contact us</b>
             </h3>
           </div>
-          <div className="container-fluid my-4">
-            <h5>
-              <b>This is a sample page.</b>
-            </h5>
-          </div>
+          
           <div className="container-fluid my-4">
             <p>
               Have a question or comment? Enter your details, and we’ll be happy
