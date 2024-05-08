@@ -123,7 +123,6 @@ export const Products=({children})=>{
       return(
         <ProductData.Provider value={{productList}}>
             {children}
-            
         </ProductData.Provider>
       )
     
