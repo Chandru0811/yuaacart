@@ -12,6 +12,9 @@ import Checkout from "./pages/Checkout";
 import ProductList from "./pages/Products/ProductList";
 import "./styles/custom.css"
 import Contactus from "./pages/Contactus";
+import WishList from "./pages/WishList";
+import Faq from "./pages/Faq";
+
 
 function App() {
   return (
@@ -30,6 +33,8 @@ function App() {
             <Route path="/cart" element={<Cart />} />
             <Route path="/discription" element={<Discription />} />
             <Route path="/contactus" element={<Contactus />} />
+            <Route path="/wishlist" element={<WishList />} />
+            <Route path="/faq" element={<Faq />} />
           </Routes>
           </div>
           <Footer />

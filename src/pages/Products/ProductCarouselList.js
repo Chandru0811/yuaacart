@@ -1,11 +1,23 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { ProductData } from "./Products";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
+import { FaRegHeart } from "react-icons/fa";
+import { FaHeart } from "react-icons/fa";
 
-const ProductList = () => {
+const ProductCarouselList = () => {
   const { productList } = useContext(ProductData);
+  const [likedProducts, setLikedProducts] = useState([]);
+
+  const toggleLike = (productId) => {
+    if (likedProducts.includes(productId)) {
+      setLikedProducts(likedProducts.filter((id) => id !== productId));
+    } else {
+      setLikedProducts([...likedProducts, productId]);
+    }
+  };
+
   const prodectResponsive = {
     desktop: {
       breakpoint: { max: 3000, min: 1024 },
@@ -49,30 +61,49 @@ const ProductList = () => {
         // itemClass="carousel-item-padding-40-px"
       >
         {productList.map((product) => (
-          <Link to="/discription" style={{ textDecoration: "none" }}>
-            <div key={product.id} className="product-item card h-100 mx-1">
-              <div
-                className="d-flex justify-content-center align-items-center "
-                style={{ height: "250px" }}
-              >
+          <div key={product.id} className="product-item card h-100 mx-1">
+            <div
+              className="d-flex justify-content-center align-items-center "
+              style={{ height: "250px" }}
+            >
+              <div className="d-flex justify-content-end">
+                <button
+                  className="btn border-0  px-1"
+                  onClick={() => toggleLike(product.id)}
+                >
+                  <span className="rounded-pill heart-rounded p-2 shadow">
+                    {likedProducts.includes(product.id) ? (
+                      <FaRegHeart style={{ color: "#8d8d8d" }} />
+                    ) : (
+                      <FaHeart style={{ color: "#fd0000e0" }} />
+                    )}
+                  </span>
+                </button>
+              </div>
+              <Link to="/discription" style={{ textDecoration: "none" }}>
                 <img
                   src={product.image}
                   alt={product.name}
                   className="img-fluid"
-                  style={{maxHeight: "95%"}}
+                  style={{ maxHeight: "95%" }}
                 />
-              </div>
-              <div class="card-body">
+              </Link>
+            </div>
+            <Link
+              to="/discription"
+              style={{ textDecoration: "none", color: "black" }}
+            >
+              <div class="card-body pt-0">
                 <h5 className="">{product.name}</h5>
                 <s className="card-text">${product.actualPrice}</s>
-              <p className="card-text">Sale Price: ${product.salePrice}</p>
+                <p className="card-text">Sale Price: ${product.salePrice}</p>
               </div>
-            </div>
-          </Link>
+            </Link>
+          </div>
         ))}
       </Carousel>
     </div>
   );
 };
 
-export default ProductList;
+export default ProductCarouselList;

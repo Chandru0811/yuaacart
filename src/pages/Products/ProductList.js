@@ -2,6 +2,7 @@ import React, { useContext,useState } from "react";
 import { Link } from "react-router-dom";
 import { ProductData } from "./Products";
 import "../../styles/custom.css"
+
 const ProductList = () => {
   const { productList } = useContext(ProductData);
   const [currentPage, setCurrentPage] = useState(1);
@@ -25,7 +26,9 @@ const ProductList = () => {
     </div>
   );
 };
+
 export default ProductList;
+
 
 export const Productpagination = ({
   totalPosts,
@@ -53,6 +56,8 @@ export const Productpagination = ({
         </div>
   )
 }
+
+
 
 export const Productpage = ({productList}) => {
   return (
