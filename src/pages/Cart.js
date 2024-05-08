@@ -8,7 +8,7 @@ function Cart() {
     <div className="cart-page">
       <div className="cart-container card-body shadow-lg">
         <div className="row mt-3 gx-0 ">
-          <div className="d-flex justify-content-between">
+          <div className="d-flex justify-content-around">
             <h3>PRODUCT</h3>
             <h3>CART TOTAL</h3>
           </div>
@@ -38,6 +38,9 @@ function Cart() {
                   <input
                     type="number"
                     className="form-control"
+                    min="1"
+                    pattern="\d+"
+                    defaultValue="1"
                     style={{ width: "10%", height: "2rem" }}
                   />
                 </span>{" "}
