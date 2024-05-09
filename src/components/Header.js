@@ -9,13 +9,10 @@ import { BsTextIndentLeft } from "react-icons/bs";
 import { FaRegHeart } from "react-icons/fa";
 import {
   Button,
-  Card,
   Container,
-  Form,
   FormControl,
   InputGroup,
   Nav,
-  NavLink,
 } from "react-bootstrap";
 import Profile from "./Profile";
 import { FiSearch } from "react-icons/fi";
@@ -60,17 +57,25 @@ function Header() {
             </Offcanvas.Header>
             <Offcanvas.Body className="" style={{ marginRight: "10%" }}>
               <Nav className="justify-content-end flex-grow-1 gap-2 ">
-                <Nav.Link >
-                 {/* onClick={handleProfileShow}  */}
-               
-                 <Link to={"/login"}  className="heading"> My Account </Link>
+                <Nav.Link>
+                  {/* onClick={handleProfileShow}  */}
+
+                  <Link to={"/login"} className="heading pb-2">
+                    {" "}
+                    My Account{" "}
+                  </Link>
                 </Nav.Link>
                 <Nav.Link>
                   <Link to={"/checkout"} className="heading pb-2">
                     Checkout
                   </Link>
                 </Nav.Link>
-                <Nav.Link ><Link to={"/faq"}className='heading pb-2'> FAQ</Link></Nav.Link>
+                <Nav.Link>
+                  <Link to={"/faq"} className="heading pb-2">
+                    {" "}
+                    FAQ
+                  </Link>
+                </Nav.Link>
                 <Nav.Link>
                   <Link to={"/contactus"} className="heading pb-2">
                     Contact us
@@ -83,7 +88,7 @@ function Header() {
       </Navbar>
 
       {/* Second Navbar */}
-      <Navbar className="bg-primary ">
+      <Navbar className="bg-primary mb-3">
         <Container fluid>
           <Navbar.Toggle aria-controls="basic-navbar-nav justify-content-between" />
 
@@ -97,16 +102,14 @@ function Header() {
             id={`offcanvasNavbarDropdown-expand-${expand} `}
           >
             <NavDropdown.Item>
-              <p>
-                <Link to="" className=" text-black ">
-                  Uncategorized
-                </Link>
-              </p>
-              <p>
-                <Link to="" className=" text-black ">
-                  Dell Laptops
-                </Link>
-              </p>
+              <Link to="" className=" text-black ">
+                Uncategorized
+              </Link>
+            </NavDropdown.Item>
+            <NavDropdown.Item>
+              <Link to="" className=" text-black ">
+                Dell Laptops
+              </Link>
             </NavDropdown.Item>
           </NavDropdown>
 
