@@ -30,7 +30,7 @@ function Header() {
       <Navbar
         key={expand}
         expand={expand}
-        className=""
+        className="NavBar-Component bg-white "
         // style={{ backgroundColor: "#ebf6ff" }}
       >
         <Container fluid>
@@ -88,7 +88,7 @@ function Header() {
       </Navbar>
 
       {/* Second Navbar */}
-      <Navbar className="bg-primary mb-3">
+      <Navbar className="bg-primary mb-3 secNavBar-Component">
         <Container fluid>
           <Navbar.Toggle aria-controls="basic-navbar-nav justify-content-between" />
 
