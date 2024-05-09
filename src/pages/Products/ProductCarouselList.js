@@ -20,12 +20,22 @@ const ProductCarouselList = () => {
 
   const prodectResponsive = {
     desktop: {
-      breakpoint: { max: 3000, min: 1024 },
+      breakpoint: { max: 3000, min: 1224 },
       items: 6,
       slidesToSlide: 1,
     },
+    lap: {
+      breakpoint: { max: 1224, min: 1324 },
+      items: 5,
+      slidesToSlide: 1,
+    },
     tablet: {
-      breakpoint: { max: 1024, min: 768 },
+      breakpoint: { max: 1324, min: 968 },
+      items: 4,
+      slidesToSlide: 2,
+    },
+    tablet1: {
+      breakpoint: { max: 968, min: 767 },
       items: 3,
       slidesToSlide: 2,
     },
@@ -47,7 +57,7 @@ const ProductCarouselList = () => {
         draggable={false}
         showDots={false}
         responsive={prodectResponsive}
-        ssr={true} // Server-side rendering support
+        ssr={true}
         infinite={true}
         autoPlay={false}
         autoPlaySpeed={2000}
@@ -64,18 +74,19 @@ const ProductCarouselList = () => {
           <div key={product.id} className="product-item card h-100 mx-1">
             <div
               className="d-flex justify-content-center align-items-center "
-              style={{ height: "250px" }}
+              style={{ height: "250px", }}
             >
               <div className="d-flex justify-content-end">
                 <button
                   className="btn border-0  px-1"
                   onClick={() => toggleLike(product.id)}
                 >
-                  <span className="rounded-pill heart-rounded p-2 shadow">
+                  <span className="rounded-pill heart-rounded shadow">
                     {likedProducts.includes(product.id) ? (
-                      <FaRegHeart style={{ color: "#8d8d8d" }} />
-                    ) : (
                       <FaHeart style={{ color: "#fd0000e0" }} />
+                      
+                    ) : (
+                      <FaRegHeart style={{ color: "#8d8d8d" }} />
                     )}
                   </span>
                 </button>
@@ -85,7 +96,7 @@ const ProductCarouselList = () => {
                   src={product.image}
                   alt={product.name}
                   className="img-fluid"
-                  style={{ maxHeight: "95%" }}
+                  style={{ maxHeight: "90%",maxWidth: "83% "  }}
                 />
               </Link>
             </div>
