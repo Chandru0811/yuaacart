@@ -124,6 +124,7 @@ a {
   position: absolute;
   top: 10px;
   right: 10px;
+  z-index: 999;
 }
 
 .custom-enlarged-image-container {
@@ -145,7 +146,14 @@ a {
   height: auto;
 }
 
-.img-fluid:hover {
-  transform: scale(1.1);
+.image-container {
+  overflow: hidden;
+}
+
+.image-section {
   transition: transform 0.3s ease;
+}
+
+.image-container:hover .image-section {
+  transform: scale(1.1);
 }

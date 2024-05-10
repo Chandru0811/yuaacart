@@ -60,58 +60,67 @@ const ProductCarouselList = () => {
         ssr={true}
         infinite={true}
         autoPlay={false}
-        autoPlaySpeed={2000}
+        autoPlaySpeed={1000}
         keyBoardControl={true}
         customTransition="all .5"
         transitionDuration={500}
         containerClass="carousel-container"
-        removeArrowOnDeviceType={["tablet", "mobile"]}
+        removeArrowOnDeviceType={["mobile"]}
         // deviceType={deviceType}
         dotListClass="custom-dot-list-style"
         // itemClass="carousel-item-padding-40-px"
       >
-        {productList.map((product) => (
-          <div key={product.id} className="product-item card h-100 mx-1">
-            <div
-              className="d-flex justify-content-center align-items-center "
-              style={{ height: "250px", }}
-            >
-              <div className="d-flex justify-content-end">
-                <button
-                  className="btn border-0  px-1"
-                  onClick={() => toggleLike(product.id)}
-                >
-                  <span className="rounded-pill heart-rounded shadow">
-                    {likedProducts.includes(product.id) ? (
-                      <FaHeart style={{ color: "#fd0000e0" }} />
-                      
-                    ) : (
-                      <FaRegHeart style={{ color: "#8d8d8d" }} />
-                    )}
-                  </span>
-                </button>
+        {productList &&
+          productList.map((product) => (
+            <div key={product.id} className="product-item card h-100 mx-1">
+              <div
+                className="d-flex justify-content-center align-items-center "
+                style={{ height: "250px" }}
+              >
+                <div className="d-flex justify-content-end">
+                  <button
+                    className="btn border-0  px-1"
+                    onClick={() => toggleLike(product.id)}
+                  >
+                    <span className="rounded-pill heart-rounded shadow">
+                      {likedProducts.includes(product.id) ? (
+                        <FaHeart style={{ color: "#fd0000e0" }} />
+                      ) : (
+                        <FaRegHeart style={{ color: "#8d8d8d" }} />
+                      )}
+                    </span>
+                  </button>
+                </div>
+                <Link to="/discription" style={{ textDecoration: "none" }}>
+                  <div
+                    className="d-flex align-items-center justify-content-center image-container"
+                    style={{ maxHeight: "100%", maxWidth: "93%" }}
+                  >
+                    <img
+                      src={`https://sgitjobs.com/ShoppingCart/public/${product.images[0].path}`}
+                      alt={product.name}
+                      className="img-fluid"
+                      style={{ maxHeight: "90%", maxWidth: "83% " }}
+                    />
+                  </div>
+                </Link>
               </div>
-              <Link to="/discription" style={{ textDecoration: "none" }}>
-                <img
-                  src={product.image}
-                  alt={product.name}
-                  className="img-fluid"
-                  style={{ maxHeight: "90%",maxWidth: "83% "  }}
-                />
+              <Link
+                to="/discription"
+                style={{ textDecoration: "none", color: "black" }}
+              >
+                <div class="card-body pt-0">
+                  <h5 className="">{product.name}</h5>
+                  <s className="card-text">
+                    ${parseFloat(product.list_price).toFixed(2)}
+                  </s>
+                  <p className="card-text">
+                    Sale Price: ${parseFloat(product.sale_price).toFixed(2)}
+                  </p>
+                </div>
               </Link>
             </div>
-            <Link
-              to="/discription"
-              style={{ textDecoration: "none", color: "black" }}
-            >
-              <div class="card-body pt-0">
-                <h5 className="">{product.name}</h5>
-                <s className="card-text">${product.actualPrice}</s>
-                <p className="card-text">Sale Price: ${product.salePrice}</p>
-              </div>
-            </Link>
-          </div>
-        ))}
+          ))}
       </Carousel>
     </div>
   );

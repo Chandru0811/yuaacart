@@ -77,7 +77,7 @@ export const Productpage = ({ productList }) => {
           <div class="col h-100">
             <div key={product.id} className="product-item card h-100 mx-1">
               <div
-                className="d-flex justify-content-center align-items-center "
+                className="d-flex align-items-center"
                 style={{ height: "250px" }}
               >
                 <div className="d-flex justify-content-end">
@@ -94,17 +94,25 @@ export const Productpage = ({ productList }) => {
                     </span>
                   </button>
                 </div>
-                <img
-                  src={product.image}
-                  alt={product.name}
-                  className="img-fluid"
-                  style={{ maxHeight: "95%" }}
-                />
+                <div
+                  className="d-flex align-items-center justify-content-center image-container"
+                  style={{ maxHeight: "100%", maxWidth: "93%" }}
+                >
+                  <img
+                    src={`https://sgitjobs.com/ShoppingCart/public/${product.images[0].path}`}
+                    alt={product.name}
+                    className="img-fluid image-section"
+                  />
+                </div>
               </div>
               <div class="card-body">
                 <h5 className="">{product.name}</h5>
-                <s className="card-text">${product.actualPrice}</s>
-                <p className="card-text">Sale Price: ${product.salePrice}</p>
+                <s className="card-text">
+                  ${parseFloat(product.list_price).toFixed(2)}
+                </s>
+                <p className="card-text">
+                  Sale Price: ${parseFloat(product.sale_price).toFixed(2)}
+                </p>
               </div>
             </div>
           </div>

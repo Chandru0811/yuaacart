@@ -8,6 +8,7 @@ import { useState } from "react";
 import { BsTextIndentLeft } from "react-icons/bs";
 import { FaRegHeart } from "react-icons/fa";
 import {
+  Badge,
   Button,
   Container,
   FormControl,
@@ -152,9 +153,10 @@ function Header() {
             </NavDropdown>
             <Nav.Link>
               <Link to="/cart">
-                <IoCartOutline className="heading text-white " size={25} />
+                <IoCartOutline className="heading text-white" size={25} />
               </Link>
             </Nav.Link>
+
             <Nav.Link>
               <Link to="">
                 <FaRegHeart className="heading text-white " size={20} />
