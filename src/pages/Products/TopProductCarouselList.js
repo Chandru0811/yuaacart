@@ -6,8 +6,8 @@ import "react-multi-carousel/lib/styles.css";
 import { FaRegHeart } from "react-icons/fa";
 import { FaHeart } from "react-icons/fa";
 
-const ProductCarouselList = () => {
-  const { productList } = useContext(ProductData);
+export const TopProductCarouselList = () => {
+  const { topProductlist } = useContext(ProductData);
   const [likedProducts, setLikedProducts] = useState([]);
 
   const toggleLike = (productId) => {
@@ -50,6 +50,7 @@ const ProductCarouselList = () => {
       slidesToSlide: 1,
     },
   };
+  
   return (
     <div>
       <Carousel
@@ -70,8 +71,8 @@ const ProductCarouselList = () => {
         dotListClass="custom-dot-list-style"
         // itemClass="carousel-item-padding-40-px"
       >
-        {productList &&
-          productList.map((product) => (
+        {topProductlist &&
+          topProductlist.map((product) => (
             <div key={product.id} className="product-item card h-100 mx-1">
               <div
                 className="d-flex justify-content-center align-items-center "
@@ -91,7 +92,7 @@ const ProductCarouselList = () => {
                     </span>
                   </button>
                 </div>
-                <Link  to={`/discription/${product.id}`} style={{ textDecoration: "none" }}>
+                <Link to="/discription" style={{ textDecoration: "none" }}>
                   <div
                     className="d-flex align-items-center justify-content-center image-container"
                     style={{ maxHeight: "100%", maxWidth: "93%" }}
@@ -106,11 +107,11 @@ const ProductCarouselList = () => {
                 </Link>
               </div>
               <Link
-                to={`/discription/${product.id}`}
+                to="/discription"
                 style={{ textDecoration: "none", color: "black" }}
               >
                 <div class="card-body pt-0">
-                  <h5 className="">{`${(product.name).split(' ').slice(0, 7).join(' ')}...`}</h5>
+                <h5 className="" >{`${(product.name).split(' ').slice(0, 7).join(' ')}...`}</h5>
                   <s className="card-text">
                     ${parseFloat(product.list_price).toFixed(2)}
                   </s>
@@ -124,6 +125,4 @@ const ProductCarouselList = () => {
       </Carousel>
     </div>
   );
-};
-
-export default ProductCarouselList;
+}

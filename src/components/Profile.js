@@ -20,7 +20,8 @@ function Profile({ show, handleClose }) {
   
   return (
     <>
-      <Offcanvas show={show} onHide={handleClose}>
+    
+      <Offcanvas show={show} onHide={handleClose} style={{zIndex: "9999"}}>
         <Offcanvas.Header closeButton>
           <b> My Account</b>
         </Offcanvas.Header>
