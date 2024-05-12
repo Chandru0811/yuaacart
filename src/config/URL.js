@@ -1,7 +1,7 @@
-import React from "react";
+import axios from "axios";
 
-function URL() {
-  return <div>URL</div>;
-}
+const api = axios.create({
+  baseURL: "https://sgitjobs.com/ShoppingCart/public/api/",
+});
 
-export default URL;
+export default api;
