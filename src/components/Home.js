@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import leftImage1 from "../assets/image_2024_04_09T09_17_20_806Z.png";
@@ -9,22 +9,58 @@ import smartimg from "../assets/gitignore.png";
 import advimage from "../assets/image_2024_05_06T13_08_11_079Z.png";
 import { Link } from "react-router-dom";
 import ProductList from "../pages/Products/ProductCarouselList";
+import axios from "axios";
+import { TopProductCarouselList } from "../pages/Products/TopProductCarouselList";
 
-const Home = () => {
-  const sliderImageUrl = [
-    {
-      url: leftImage1,
-    },
-    {
-      url: leftImage2,
-    },
-    {
-      url: rightImage1,
-    },
-    {
-      url: rightImage2,
-    },
-  ];
+
+  const Home = () => {
+    const [sliderImageUrl, setSliderImageUrl] = useState([]);
+    const [topbanner, setTopBanner] = useState([]);
+    // console.log("slider",sliderImageUrl);
+  
+    const getProductData = async () => {
+      try {
+        const response = await axios.get(
+          "https://sgitjobs.com/ShoppingCart/public/api/topSliders"
+        );
+        // console.log("response",response.data.data.sliders);
+        setSliderImageUrl(response.data.data.sliders);
+      } catch (error) {
+        console.error("Error fetching product data:", error);
+      }
+    };
+
+    const getProductDatas = async () => {
+      try {
+        const response = await axios.get(
+          "https://sgitjobs.com/ShoppingCart/public/api/topBanner"
+        );
+        setTopBanner(response.data.data.$banner);
+        console.log("response",topbanner.path);
+      } catch (error) {
+        console.error("Error fetching product data:", error);
+      }
+    };
+  
+    useEffect(() => {
+      getProductData();
+      getProductDatas();
+    }, []);
+
+  // const sliderImageUrl = [
+  //   {
+  //     url: leftImage1,
+  //   },
+  //   {
+  //     url: leftImage2,
+  //   },
+  //   {
+  //     url: rightImage1,
+  //   },
+  //   {
+  //     url: rightImage2,
+  //   },
+  // ];
 
   const responsiveSettings = {
     desktop: {
@@ -46,7 +82,7 @@ const Home = () => {
 
  return (
     <div className="container-fluid gx-0">
-      <Carousel
+      {/* <Carousel
         responsive={responsiveSettings}
         swipeable={true}
         draggable={true}
@@ -77,6 +113,38 @@ const Home = () => {
           </div>
          </Link>
         ))}
+      </Carousel> */}
+      <Carousel
+        responsive={responsiveSettings}
+        swipeable={true}
+        draggable={true}
+        showDots={false}
+        infinite={true}
+        autoPlay={true}
+        autoPlaySpeed={2000}
+        keyBoardControl={true}
+        customTransition="all .5"
+        transitionDuration={500}
+        containerClass="carousel-container"
+        removeArrowOnDeviceType={["desktop", "tablet", "mobile"]}
+        dotListClass="custom-dot-list-style"
+        itemClass="carousel-item-padding-40-px container-fluid"
+      >
+        {sliderImageUrl && sliderImageUrl.map((images, index) => (
+          <Link to="/productlist">
+            <div className="">
+              <div className="row" key={index}>
+                <div className="col-12 ">
+                  <img
+                    src={`https://sgitjobs.com/ShoppingCart/public/${images.path}`}
+                    alt={`left-${index}`}
+                    className="img-fluid mb-3"
+                  />
+                </div>
+              </div>
+            </div>
+          </Link>
+        ))}
       </Carousel>
       <div className="my-5">
         <h4 className="p-3 fw-bold ">Sale Products</h4>
@@ -93,14 +161,9 @@ const Home = () => {
       >
         <Link to={"/productlist"} style={{textDecoration:"none"}}>
         <div className=" container-fluid row">
-          <div className="col-md-6 col-12 d-flex justify-content-center align-items-center text-center">
-            <div className="">
-              <h1 className=" text-primary fw-bold ">Smart, sleek,powerful</h1>
-              <p className=" text-light">Elevate Your Productivity with Our Latest Laptops!</p>
-            </div>
-          </div>
-          <div className="col-md-6 col-12 d-flex justify-content-center align-items-center">
-            <img src={smartimg} alt="" className="img-fluid" />
+         
+          <div className="col-12 d-flex justify-content-center align-items-center">
+            <img src={`https://sgitjobs.com/ShoppingCart/public/${topbanner.path}` } alt="" className="img-fluid" />
           </div>
         </div>
           </Link>
@@ -108,7 +171,7 @@ const Home = () => {
       <div className="container-fluid my-5">
         <h4 className="p-3 fw-bold ">Top Rated Products</h4>
         <div className="">
-          <ProductList />
+          <TopProductCarouselList />
         </div>
       </div>
       <div className="my-3">
