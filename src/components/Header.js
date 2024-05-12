@@ -4,7 +4,7 @@ import Offcanvas from "react-bootstrap/Offcanvas";
 import Logo from "../assets/Yuaacart-Logo.png";
 import { FaRegUser } from "react-icons/fa";
 import { IoCartOutline } from "react-icons/io5";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BsTextIndentLeft } from "react-icons/bs";
 import { FaRegHeart } from "react-icons/fa";
 import {
@@ -21,11 +21,25 @@ import { Link } from "react-router-dom";
 
 function Header() {
   const expand = "lg";
+  const token = localStorage.getItem("token");
+  const athe = localStorage.getItem("athe");
+  const [isAuthenticated, setisAuthenticated] = useState(athe);
   const [showProfile, setShowProfile] = useState(false);
+
+  console.log(isAuthenticated);
 
   const handleProfileClose = () => setShowProfile(false);
   const handleProfileShow = () => setShowProfile(true);
-  console.log("Offcanvas", Offcanvas.defaultProps);
+  // console.log("Offcanvas", Offcanvas.defaultProps);
+  console.log(typeof token);
+  const logout = () => {
+    setisAuthenticated(false);
+    localStorage.removeItem("token");
+  };
+
+  if (isAuthenticated) {
+    console.log("object");
+  }
   return (
     <>
       <Navbar
@@ -60,11 +74,16 @@ function Header() {
               <Nav className="justify-content-end flex-grow-1 gap-2 ">
                 <Nav.Link>
                   {/* onClick={handleProfileShow}  */}
-
-                  <Link to={"/login"} className="heading pb-2">
-                    {" "}
-                    My Account{" "}
-                  </Link>
+                  {/* <Profile show={handleProfileShow} handleClose={handleProfileClose}/> */}
+                  {token ? (
+                    <Link to={"/login"} className="heading pb-2">
+                      My Account{" "}
+                    </Link>
+                  ) : (
+                    <Link onClick={handleProfileShow} className="heading pb-2">
+                      My Account
+                    </Link>
+                  )}
                 </Nav.Link>
                 <Nav.Link>
                   <Link to={"/checkout"} className="heading pb-2">
@@ -145,11 +164,15 @@ function Header() {
               drop="start"
               variant="secondary"
             >
-              <NavDropdown.Item>
-                <Link to="/login" className=" text-black ">
-                  Login
-                </Link>
-              </NavDropdown.Item>
+              {token ? (
+                <NavDropdown.Item onClick={logout}>Logout</NavDropdown.Item>
+              ) : (
+                <NavDropdown.Item>
+                  <Link to="/login" className="text-black">
+                    Login
+                  </Link>
+                </NavDropdown.Item>
+              )}
             </NavDropdown>
             <Nav.Link>
               <Link to="/cart">

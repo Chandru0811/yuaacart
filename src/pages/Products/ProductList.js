@@ -73,7 +73,7 @@ export const Productpage = ({ productList }) => {
   return (
     <div class="row row-cols-lg-5 row-cols-md-3 row-cols-sm-1 g-3">
       {productList.map((product) => (
-        <Link to="/discription" style={{ textDecoration: "none" }}>
+        <Link to={`/discription/${product.id}`} style={{ textDecoration: "none" }}>
           <div class="col h-100">
             <div key={product.id} className="product-item card h-100 mx-1">
               <div
@@ -106,7 +106,7 @@ export const Productpage = ({ productList }) => {
                 </div>
               </div>
               <div class="card-body">
-                <h5 className="">{product.name}</h5>
+                <h5 className="">{`${(product.name).split(' ').slice(0, 7).join(' ')}...`}</h5>
                 <s className="card-text">
                   ${parseFloat(product.list_price).toFixed(2)}
                 </s>
