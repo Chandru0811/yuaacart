@@ -157,3 +157,12 @@ a {
 .image-container:hover .image-section {
   transform: scale(1.1);
 }
+.subTotal-card {
+  position: sticky;
+  top: 145px;
+}
+
+.productCart-card {
+  height: 70vh;
+  overflow: auto;
+}
