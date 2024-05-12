@@ -16,6 +16,8 @@ import { TopProductCarouselList } from "../pages/Products/TopProductCarouselList
   const Home = () => {
     const [sliderImageUrl, setSliderImageUrl] = useState([]);
     const [topbanner, setTopBanner] = useState([]);
+    const [bottombanner, setBottomBanner] = useState([]);
+    const [bannerImageUrl, setBannerImageUrl] = useState([]);
     // console.log("slider",sliderImageUrl);
   
     const getProductData = async () => {
@@ -24,6 +26,18 @@ import { TopProductCarouselList } from "../pages/Products/TopProductCarouselList
           "https://sgitjobs.com/ShoppingCart/public/api/topSliders"
         );
         // console.log("response",response.data.data.sliders);
+        setSliderImageUrl(response.data.data.sliders);
+      } catch (error) {
+        console.error("Error fetching product data:", error);
+      }
+    };
+
+    const getProductData1 = async () => {
+      try {
+        const response = await axios.get(
+          "https://sgitjobs.com/ShoppingCart/public/api/bottomSliders"
+        );
+        console.log("response", response.data.data.sliders);
         setSliderImageUrl(response.data.data.sliders);
       } catch (error) {
         console.error("Error fetching product data:", error);
@@ -41,10 +55,24 @@ import { TopProductCarouselList } from "../pages/Products/TopProductCarouselList
         console.error("Error fetching product data:", error);
       }
     };
+
+    const getProductDatas1 = async () => {
+      try {
+        const response = await axios.get(
+          "https://sgitjobs.com/ShoppingCart/public/api/bottomBanner"
+        );
+        setBottomBanner(response.data.data.$banner);
+        console.log("response",bottombanner.path);
+      } catch (error) {
+        console.error("Error fetching product data:", error);
+      }
+    };
   
     useEffect(() => {
       getProductData();
+      getProductData1();
       getProductDatas();
+      getProductDatas1();
     }, []);
 
   // const sliderImageUrl = [
@@ -152,21 +180,12 @@ import { TopProductCarouselList } from "../pages/Products/TopProductCarouselList
           <ProductList />
         </div>
       </div>
-      <div
-        className="card container-fluid "
-        style={{
-          background:
-            "linear-gradient(to right, rgb(158 199 229), rgb(20 177 255))",
-        }}
-      >
-        <Link to={"/productlist"} style={{textDecoration:"none"}}>
-        <div className=" container-fluid row">
-         
-          <div className="col-12 d-flex justify-content-center align-items-center">
-            <img src={`https://sgitjobs.com/ShoppingCart/public/${topbanner.path}` } alt="" className="img-fluid" />
-          </div>
-        </div>
-          </Link>
+      <div className="">
+        <img
+          src={`https://sgitjobs.com/ShoppingCart/public/${topbanner.path}`}
+          alt="Test"
+          className="img-fluid"
+        />
       </div>
       <div className="container-fluid my-5">
         <h4 className="p-3 fw-bold ">Top Rated Products</h4>
@@ -175,10 +194,29 @@ import { TopProductCarouselList } from "../pages/Products/TopProductCarouselList
         </div>
       </div>
       <div className="my-3">
-        <Link to={"/productlist"}>
-        <img src={advimage} alt="" className="img-fluid" />
+      <Link to={"/productlist"} style={{textDecoration:"none"}}>
+        <div className=" container-fluid row">
+         
+          <div className="col-12 d-flex justify-content-center align-items-center">
+            <img src={`https://sgitjobs.com/ShoppingCart/public/${bottombanner.path}` } alt="" className="img-fluid" />
+          </div>
+        </div>
+          </Link>
+      </div>
+
+      <div className="container-fluid">
+        <Link to="/productlist">
+          <div className="  row mt-3">
+            {sliderImageUrl && sliderImageUrl.map((images, index) => (
+              <div className="col-md-6 col-12 my-1">
+                <img src={`https://sgitjobs.com/ShoppingCart/public/${images.path}`} alt="1" className="img-fluid" />
+              </div>
+            )
+            )}
+          </div>
         </Link>
       </div>
+      
       {/* <div className="container-fluid">
         <div className="  row mt-3">
           <div className="col-md-6 col-12 my-1">

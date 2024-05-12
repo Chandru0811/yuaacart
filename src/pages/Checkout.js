@@ -49,26 +49,26 @@ function Checkout() {
       state: "",
       pinCode: "",
       Phone: "",
-      paymentOptions: true,
+      paymentOptions: "",
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
       console.log(values);
-      try {
-        const response = await api.post(`checkout/${id}`, values, {
-          headers: {
-            "Content-Type": "application/json",
-            //Authorization: `Bearer ${token}`,
-          },
-        }
-        );
-        if (response.status === 201) {
-          console.log(response.data)
-          navigate("/productlist")
-        }
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
+      // try {
+      //   const response = await api.post(`checkout/${id}`, values, {
+      //     headers: {
+      //       "Content-Type": "application/json",
+      //       //Authorization: `Bearer ${token}`,
+      //     },
+      //   }
+      //   );
+      //   if (response.status === 201) {
+      //     console.log(response.data)
+      //     navigate("/productlist")
+      //   }
+      // } catch (error) {
+      //   console.error("Error fetching data:", error);
+      // }
     },
   });
 
@@ -100,13 +100,12 @@ function Checkout() {
                   <option value="Two">Two</option>
                   <option value="Three">Three</option>
                 </select>
-                {formik.touched.orderSummary &&
-                  formik.errors.orderSummary && (
-                    <div className="invalid-feedback">
-                      {formik.errors.orderSummary}
-                    </div>
-                  )}
               </div>
+              {formik.touched.orderSummary && formik.errors.orderSummary && (
+                <div className=" text-danger">
+                  {formik.errors.orderSummary}
+                </div>
+              )}
             </div>
 
             <div className="col-lg-6 col-md-6 col-12 mb-3">
@@ -120,12 +119,12 @@ function Checkout() {
                     }`}
                   {...formik.getFieldProps("gotACoupon")}
                 />
-                {formik.touched.gotACoupon && formik.errors.gotACoupon && (
-                  <div className="invalid-feedback">
-                    {formik.errors.gotACoupon}
-                  </div>
-                )}
               </div>
+              {formik.touched.gotACoupon && formik.errors.gotACoupon && (
+                <div className=" text-danger">
+                  {formik.errors.gotACoupon}
+                </div>
+              )}
             </div>
 
             <div className="col-lg-6 col-md-6 col-12 mb-3">
@@ -139,12 +138,12 @@ function Checkout() {
                     }`}
                   {...formik.getFieldProps("subTotal")}
                 />
-                {formik.touched.subTotal && formik.errors.subTotal && (
-                  <div className="invalid-feedback">
-                    {formik.errors.subTotal}
-                  </div>
-                )}
               </div>
+              {formik.touched.subTotal && formik.errors.subTotal && (
+                <div className="text-danger">
+                  {formik.errors.subTotal}
+                </div>
+              )}
             </div>
 
             <div className="col-lg-6 col-md-6 col-12 mb-3">
@@ -158,12 +157,12 @@ function Checkout() {
                     }`}
                   {...formik.getFieldProps("shipping")}
                 />
-                {formik.touched.shipping && formik.errors.shipping && (
-                  <div className="invalid-feedback">
-                    {formik.errors.shipping}
-                  </div>
-                )}
               </div>
+              {formik.touched.shipping && formik.errors.shipping && (
+                <div className="text-danger">
+                  {formik.errors.shipping}
+                </div>
+              )}
             </div>
 
             <div className="col-lg-6 col-md-6 col-12 mb-3">
@@ -182,12 +181,12 @@ function Checkout() {
                   <option value="Yes">Yes</option>
                   <option value="No">No</option>
                 </select>
-                {formik.touched.giftCard && formik.errors.giftCard && (
-                  <div className="invalid-feedback">
-                    {formik.errors.giftCard}
-                  </div>
-                )}
               </div>
+              {formik.touched.giftCard && formik.errors.giftCard && (
+                <div className="text-danger">
+                  {formik.errors.giftCard}
+                </div>
+              )}
             </div>
 
             <div className="col-lg-6 col-md-6 col-12 mb-3">
@@ -201,12 +200,12 @@ function Checkout() {
                     }`}
                   {...formik.getFieldProps("total")}
                 />
-                {formik.touched.total && formik.errors.total && (
-                  <div className="invalid-feedback">
-                    {formik.errors.total}
-                  </div>
-                )}
               </div>
+              {formik.touched.total && formik.errors.total && (
+                <div className="text-danger">
+                  {formik.errors.total}
+                </div>
+              )}
             </div>
 
           </div>
@@ -232,12 +231,12 @@ function Checkout() {
                     }`}
                   {...formik.getFieldProps("firstName")}
                 />
-                {formik.touched.firstName && formik.errors.firstName && (
-                  <div className="invalid-feedback">
-                    {formik.errors.firstName}
-                  </div>
-                )}
               </div>
+              {formik.touched.firstName && formik.errors.firstName && (
+                <div className="text-danger">
+                  {formik.errors.firstName}
+                </div>
+              )}
             </div>
 
             <div className="col-lg-6 col-md-6 col-12 mb-3">
@@ -252,12 +251,12 @@ function Checkout() {
                     }`}
                   {...formik.getFieldProps("lasttName")}
                 />
-                {formik.touched.lasttName && formik.errors.lasttName && (
-                  <div className="invalid-feedback">
-                    {formik.errors.lasttName}
-                  </div>
-                )}
               </div>
+              {formik.touched.lasttName && formik.errors.lasttName && (
+                <div className="text-danger">
+                  {formik.errors.lasttName}
+                </div>
+              )}
             </div>
 
             <div className="col-lg-6 col-md-6 col-12 mb-3">
@@ -272,12 +271,12 @@ function Checkout() {
                     }`}
                   {...formik.getFieldProps("address")}
                 />
-                {formik.touched.address && formik.errors.address && (
-                  <div className="invalid-feedback">
-                    {formik.errors.address}
-                  </div>
-                )}
               </div>
+              {formik.touched.address && formik.errors.address && (
+                <div className="text-danger">
+                  {formik.errors.address}
+                </div>
+              )}
             </div>
 
             <div className="col-lg-6 col-md-6 col-12 mb-3">
@@ -292,12 +291,12 @@ function Checkout() {
                     }`}
                   {...formik.getFieldProps("appartment")}
                 />
+              </div>
                 {formik.touched.appartment && formik.errors.appartment && (
-                  <div className="invalid-feedback">
+                  <div className="text-danger">
                     {formik.errors.appartment}
                   </div>
                 )}
-              </div>
             </div>
 
             <div className="col-lg-6 col-md-6 col-12 mb-3">
@@ -312,12 +311,12 @@ function Checkout() {
                     }`}
                   {...formik.getFieldProps("country")}
                 />
-                {formik.touched.country && formik.errors.country && (
-                  <div className="invalid-feedback">
-                    {formik.errors.country}
-                  </div>
-                )}
               </div>
+              {formik.touched.country && formik.errors.country && (
+                <div className="text-danger">
+                  {formik.errors.country}
+                </div>
+              )}
             </div>
 
             <div className="col-lg-6 col-md-6 col-12 mb-3">
@@ -332,12 +331,12 @@ function Checkout() {
                     }`}
                   {...formik.getFieldProps("state")}
                 />
-                {formik.touched.state && formik.errors.state && (
-                  <div className="invalid-feedback">
-                    {formik.errors.state}
-                  </div>
-                )}
               </div>
+              {formik.touched.state && formik.errors.state && (
+                <div className="text-danger">
+                  {formik.errors.state}
+                </div>
+              )}
             </div>
 
             <div className="col-lg-6 col-md-6 col-12 mb-3">
@@ -352,12 +351,12 @@ function Checkout() {
                     }`}
                   {...formik.getFieldProps("pinCode")}
                 />
-                {formik.touched.pinCode && formik.errors.pinCode && (
-                  <div className="invalid-feedback">
-                    {formik.errors.pinCode}
-                  </div>
-                )}
               </div>
+              {formik.touched.pinCode && formik.errors.pinCode && (
+                <div className="text-danger">
+                  {formik.errors.pinCode}
+                </div>
+              )}
             </div>
 
             <div className="col-lg-6 col-md-6 col-12 mb-3">
@@ -372,12 +371,12 @@ function Checkout() {
                     }`}
                   {...formik.getFieldProps("Phone")}
                 />
-                {formik.touched.Phone && formik.errors.Phone && (
-                  <div className="invalid-feedback">
-                    {formik.errors.Phone}
-                  </div>
-                )}
               </div>
+              {formik.touched.Phone && formik.errors.Phone && (
+                <div className="text-danger">
+                  {formik.errors.Phone}
+                </div>
+              )}
             </div>
 
             <div className="col-lg-6 col-md-6 col-12 mb-3">
@@ -402,35 +401,41 @@ function Checkout() {
           </div>
 
           <div className='container'>
-            <div className='card bg-white my-5 mx-auto p-3 '>
-              <div className="form-group mt-2">
-                <input
-                  input type="checkbox" name="directbank" id="checkbox1"
-                  className="form-check-input me-2"
-                  checked={formik.values.paymentOptions && formik.values.paymentOptions.directbank}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
+            <div className="my-4">
+              <div className='card bg-white mx-auto p-3 '>
+                <div className="form-group mt-2">
+                  <input
+                    type="radio"
+                    name="paymentOptions"
+                    id="directbank"
+                    value="directbank"
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    className="form-radio-input me-2"
                   />
-                <label>Direct bank transfer</label>
+                  <label htmlFor="directbank">Direct bank transfer</label>
+                </div>
+
+                <div className="form-group mt-2">
+                  <input
+                    type="radio"
+                    name="paymentOptions"
+                    id="cashon"
+                    value="cashon"
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    className="form-radio-input me-2"
+                  />
+                  <label htmlFor="cashon">Cash on delivery</label>
+                </div>
               </div>
-              
-              <div className="form-group mt-2">
-                <input
-                   input type="checkbox" name="cashon" id="checkbox2"
-                   className="form-check-input me-2"
-                   checked={formik.values.paymentOptions && formik.values.paymentOptions.cashon}
-                   onChange={formik.handleChange}
-                   onBlur={formik.handleBlur}
-                   />
-                <label>Cash on delivery</label>
-              </div>
-            </div>
-            {formik.touched.paymentOptions &&
+              {formik.touched.paymentOptions &&
                 formik.errors.paymentOptions && (
-                  <div className="invalid-feedback">
+                  <div className=" text-danger">
                     {formik.errors.paymentOptions}
                   </div>
                 )}
+            </div>
             <input
               type="checkbox"
               className="form-check-input me-2">
@@ -442,7 +447,7 @@ function Checkout() {
             </p>
 
             <div className=' d-flex justify-content-center align-items-center mb-3'>
-              <button className='btn btn-primary'>Place Order</button>
+              <button className='btn btn-primary' type="submit">Place Order</button>
             </div>
           </div>
         </div>

@@ -18,6 +18,7 @@ import {
 import Profile from "./Profile";
 import { FiSearch } from "react-icons/fi";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 function Header() {
   const expand = "lg";
@@ -25,6 +26,8 @@ function Header() {
   const athe = localStorage.getItem("athe");
   const [isAuthenticated, setisAuthenticated] = useState(athe);
   const [showProfile, setShowProfile] = useState(false);
+  const [TotalItems, setTotalItems] = useState([]);
+
 
   console.log(isAuthenticated);
 
@@ -40,13 +43,30 @@ function Header() {
   if (isAuthenticated) {
     console.log("object");
   }
+
+  
+    const gettotalItems = async () => {
+      try {
+        const response = await axios.get(
+          "https://sgitjobs.com/ShoppingCart/public/api/totalitems"
+        );
+        console.log("items", response.data);
+        setTotalItems(response.data)
+      } catch (error) {
+        console.error("Error fetching product data:", error);
+      }
+    };
+    useEffect(() => {
+      gettotalItems()
+    },[])
+
   return (
     <>
       <Navbar
         key={expand}
         expand={expand}
         className="NavBar-Component bg-white "
-        // style={{ backgroundColor: "#ebf6ff" }}
+      // style={{ backgroundColor: "#ebf6ff" }}
       >
         <Container fluid>
           <Navbar.Brand>
@@ -177,6 +197,9 @@ function Header() {
             <Nav.Link>
               <Link to="/cart">
                 <IoCartOutline className="heading text-white" size={25} />
+                <span class="position-absolute top-5 start-80 translate-middle badge rounded-pill bg-danger">
+                  {TotalItems.total_items}
+                </span>
               </Link>
             </Nav.Link>
 

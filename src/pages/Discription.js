@@ -5,22 +5,28 @@ import api from "../config/URL";
 import { toast } from "react-toastify";
 import ProductList from "./Products/ProductList";
 import Drift from "drift-zoom";
+import axios from "axios";
 
 export default function Description() {
   const { id } = useParams();
   const [data, setData] = useState([]);
   const [mainImage, setMainImage] = useState();
   const [images, setImages] = useState([]);
+  const [quantity, setQuantity] = useState(1);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await api.get(`product/view/${id}`);
-       if(response.status === 200){ const productData = response.data.data.product;
-        setData(productData);
-        console.log("datas",response.data.data.product)
-        setMainImage(`https://sgitjobs.com/ShoppingCart/public/${productData.images[0]?.path}`); 
-        setImages(productData.images);}
+        if (response.status === 200) {
+          const productData = response.data.data.product;
+          setData(productData);
+          console.log("datas", data);
+          setMainImage(
+            `https://sgitjobs.com/ShoppingCart/public/${productData.images[0]?.path}`
+          );
+          setImages(productData.images);
+        }
       } catch (error) {
         toast.error("Error Fetching Data: " + error.message);
       }
@@ -36,7 +42,28 @@ export default function Description() {
   const formatPrice = (price) => {
     return parseFloat(price).toFixed(2);
   };
- 
+console.log("data",data);
+console.log("qantity",quantity);
+  const addCart = async () => {
+    const formData = new FormData();
+    formData.append("quantity", quantity);
+    formData.append("sale_price", data.sale_price);
+    formData.append("shipTo", 1);
+    formData.append("shippingZoneId", 1);
+    formData.append("handling", 1);
+
+    try {
+      const response = await axios.post(
+        `https://sgitjobs.com/ShoppingCart/public/api/addtocart/${data.slug}`,
+        formData
+      );
+      if (response.status === 200) {
+        console.log("added");
+      }
+    } catch (error) {
+      console.log("Error Submiting Data, ", error);
+    }
+  };
 
   return (
     <div className="container-fluid">
@@ -44,12 +71,14 @@ export default function Description() {
         <h3>{data.name}</h3>
         <div className="row m-5">
           <div className="col-md-6 col-12">
-            <div  style={{ width: "100%", height: "500px", overflow: "hidden" }}>
-          <ZoomImage imageUrl={mainImage}  />
-          </div>
-     
+            <div style={{ width: "100%", height: "500px", overflow: "hidden" }}>
+              <ZoomImage imageUrl={mainImage} />
+            </div>
 
-            <div className="d-flex pt-3 gap-2"  style={{ width: "50px", height: "auto" }}>
+            <div
+              className="d-flex pt-3 gap-2"
+              style={{ width: "50px", height: "auto" }}
+            >
               {images.map((image, index) => (
                 <img
                   key={index}
@@ -57,14 +86,20 @@ export default function Description() {
                   alt={`Product ${index + 1}`}
                   className="img-fluid"
                   style={{ cursor: "pointer" }}
-                  onClick={() => handleChange(`https://sgitjobs.com/ShoppingCart/public/${image.path}`)}  />
+                  onClick={() =>
+                    handleChange(
+                      `https://sgitjobs.com/ShoppingCart/public/${image.path}`
+                    )
+                  }
+                />
               ))}
             </div>
           </div>
           <div className="col-md-6 col-12">
             <h4>{data.name}</h4>
             <p>
-              <s>₹{formatPrice(data.list_price)}</s> ₹{formatPrice(data.sale_price)}
+              <s>₹{formatPrice(data.list_price)}</s> ₹
+              {formatPrice(data.sale_price)}
             </p>
             <h6>{data.description}</h6>
             <input
@@ -73,15 +108,24 @@ export default function Description() {
               min="1"
               pattern="\d+"
               defaultValue="1"
+              value={quantity} // Binding input value to the state variable
+              onChange={(e)=>(setQuantity(e.target.value))} // Handling input change
             />
             <div className="d-flex gap-3 pt-3">
               <Link to="/cart">
-                <button className="btn" style={{ backgroundColor: "rgb(0 107 255)", color: "white" }}>
+                <button
+                  className="btn"
+                  onClick={addCart}
+                  style={{ backgroundColor: "rgb(0 107 255)", color: "white" }}
+                >
                   Add To Cart
                 </button>
               </Link>
               <Link to="/checkout">
-                <button className="btn" style={{ backgroundColor: "#18b5fc", color: "white" }}>
+                <button
+                  className="btn"
+                  style={{ backgroundColor: "#18b5fc", color: "white" }}
+                >
                   Buy Now
                 </button>
               </Link>
@@ -89,9 +133,14 @@ export default function Description() {
           </div>
         </div>
 
-        <Tabs defaultActiveKey="home" transition={false} id="noanim-tab-example" className="mb-3">
+        <Tabs
+          defaultActiveKey="home"
+          transition={false}
+          id="noanim-tab-example"
+          className="mb-3"
+        >
           <Tab eventKey="home" title="Description">
-          <h6>{data.description}</h6>
+            <h6>{data.description}</h6>
           </Tab>
           <Tab eventKey="profile" title="Reviews">
             <p>There are no reviews yet.</p>
@@ -117,7 +166,7 @@ const ZoomImage = ({ imageUrl }) => {
         paneContainer: paneRef.current,
         inlineContainer: inlineContainerRef.current,
       });
-      return () => drift.destroy(); 
+      return () => drift.destroy();
     }
   }, [imageUrl]);
   return (
