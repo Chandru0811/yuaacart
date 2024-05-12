@@ -3,9 +3,9 @@ import { Link, useParams } from "react-router-dom";
 import { Tab, Tabs } from "react-bootstrap";
 import api from "../config/URL";
 import { toast } from "react-toastify";
-import ProductList from "./Products/ProductList";
 import Drift from "drift-zoom";
 import axios from "axios";
+import ProductCarouselList from "./Products/ProductCarouselList";
 
 export default function Description() {
   const { id } = useParams();
@@ -13,6 +13,7 @@ export default function Description() {
   const [mainImage, setMainImage] = useState();
   const [images, setImages] = useState([]);
   const [quantity, setQuantity] = useState(1);
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -42,8 +43,7 @@ export default function Description() {
   const formatPrice = (price) => {
     return parseFloat(price).toFixed(2);
   };
-console.log("data",data);
-console.log("qantity",quantity);
+
   const addCart = async () => {
     const formData = new FormData();
     formData.append("quantity", quantity);
@@ -57,11 +57,18 @@ console.log("qantity",quantity);
         `https://sgitjobs.com/ShoppingCart/public/api/addtocart/${data.slug}`,
         formData
       );
+      console.log(response.data);
       if (response.status === 200) {
-        console.log("added");
+        toast.success(response.data.message);
       }
     } catch (error) {
-      console.log("Error Submiting Data, ", error);
+      // console.log(error?.response?.status);
+      if (error?.response?.status === 409) {
+        // alert("Item already in cart");
+        toast.warning(error?.response?.data?.message);
+      } else {
+        console.log("Error : ", error);
+      }
     }
   };
 
@@ -109,26 +116,35 @@ console.log("qantity",quantity);
               pattern="\d+"
               defaultValue="1"
               value={quantity} // Binding input value to the state variable
-              onChange={(e)=>(setQuantity(e.target.value))} // Handling input change
+              onChange={(e) => setQuantity(e.target.value)} // Handling input change
             />
             <div className="d-flex gap-3 pt-3">
-              <Link to="/cart">
-                <button
-                  className="btn"
-                  onClick={addCart}
-                  style={{ backgroundColor: "rgb(0 107 255)", color: "white" }}
-                >
-                  Add To Cart
-                </button>
-              </Link>
-              <Link to="/checkout">
-                <button
-                  className="btn"
-                  style={{ backgroundColor: "#18b5fc", color: "white" }}
-                >
-                  Buy Now
-                </button>
-              </Link>
+              <button
+                className="btn"
+                onClick={addCart}
+                style={{ backgroundColor: "rgb(0 107 255)", color: "white" }}
+              >
+                Add To Cart
+              </button>
+              {token ? (
+                <Link to="/checkout">
+                  <button
+                    className="btn"
+                    style={{ backgroundColor: "#18b5fc", color: "white" }}
+                  >
+                    Buy Now
+                  </button>
+                </Link>
+              ) : (
+                <Link to="/login">
+                  <button
+                    className="btn"
+                    style={{ backgroundColor: "#18b5fc", color: "white" }}
+                  >
+                    Buy Now
+                  </button>
+                </Link>
+              )}
             </div>
           </div>
         </div>
@@ -149,7 +165,7 @@ console.log("qantity",quantity);
       </div>
       <div className="px-1 py-4">
         <h3>Related products</h3>
-        <ProductList />
+        <ProductCarouselList />
       </div>
     </div>
   );

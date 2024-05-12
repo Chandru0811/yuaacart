@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import Logo from "../assets/Yuaacart-Logo.png";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const validationSchema = Yup.object({
   email: Yup.string().required("*Employee id is required"),
@@ -11,8 +12,7 @@ const validationSchema = Yup.object({
 });
 
 function Login() {
-
-  const navigate =useNavigate()
+  const navigate = useNavigate();
 
   const formik = useFormik({
     initialValues: {
@@ -33,14 +33,18 @@ function Login() {
         // console.log(response)
         if (response.data.statusCode === 200) {
           console.log(response.data.data.token);
-          localStorage.setItem("token",response.data.data.token)
-          localStorage.setItem("athe",true)
-          navigate("/checkout")
+          sessionStorage.setItem("token", response.data.data.token);
+          sessionStorage.setItem("athe", true);
+          navigate("/checkout");
         } else {
-          console.log(response.data.message);
+          toast.error(response.data.message);
         }
       } catch (error) {
-        console.log("Error Submiting Data, ", error);
+        if (error?.response?.status === 404) {
+          toast.error(error?.response?.data?.data?.email[0]);
+        } else {
+          toast.error(error?.response?.data?.data?.message);
+        }
       }
     },
   });

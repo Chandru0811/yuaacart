@@ -1,16 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { useNavigate, useParams } from "react-router-dom";
-import api from '../config/URL'
+import { useNavigate } from "react-router-dom";
+import api from "../config/URL";
 
 function Checkout() {
-
-  const { id } = useParams();
-  const navigate = useNavigate()
+  // const { id } = useParams();
+  const navigate = useNavigate();
 
   const validationSchema = Yup.object({
-
     orderSummary: Yup.string().required("*Summary is required"),
     gotACoupon: Yup.string().required("*Coupon is required"),
     subTotal: Yup.string().required("*SubTotal is required"),
@@ -25,15 +23,14 @@ function Checkout() {
     appartment: Yup.string().required("*Appartment is required"),
     country: Yup.string().required("*Country is required"),
     state: Yup.string().required("*State is required"),
-    pinCode: Yup.string().required("*Pin Code is required")
+    pinCode: Yup.string()
+      .required("*Pin Code is required")
       .typeError("*Must be a number"),
     Phone: Yup.string().required("*Phone Number is required"),
     paymentOptions: Yup.string().required("*Payment Options is required"),
-
   });
 
   const formik = useFormik({
-
     initialValues: {
       orderSummary: "",
       gotACoupon: "",
@@ -72,7 +69,6 @@ function Checkout() {
     },
   });
 
-
   return (
     <section>
       <form onSubmit={formik.handleSubmit}>
@@ -87,11 +83,11 @@ function Checkout() {
               <lable>Order Summary</lable> &nbsp;&nbsp;
               <div className="d-flex align-items-center justify-content-end  sm-device">
                 <select
-                  className={`form-select ${formik.touched.orderSummary &&
-                    formik.errors.orderSummary
-                    ? "is-invalid"
-                    : ""
-                    }`}
+                  className={`form-select ${
+                    formik.touched.orderSummary && formik.errors.orderSummary
+                      ? "is-invalid"
+                      : ""
+                  }`}
                   {...formik.getFieldProps("orderSummary")}
                   aria-label="Default select example"
                 >
@@ -102,9 +98,7 @@ function Checkout() {
                 </select>
               </div>
               {formik.touched.orderSummary && formik.errors.orderSummary && (
-                <div className=" text-danger">
-                  {formik.errors.orderSummary}
-                </div>
+                <div className=" text-danger">{formik.errors.orderSummary}</div>
               )}
             </div>
 
@@ -113,17 +107,16 @@ function Checkout() {
               <div className="d-flex align-items-center justify-content-end  sm-device">
                 <input
                   type="text"
-                  className={`form-control  ${formik.touched.gotACoupon && formik.errors.gotACoupon
-                    ? "is-invalid"
-                    : ""
-                    }`}
+                  className={`form-control  ${
+                    formik.touched.gotACoupon && formik.errors.gotACoupon
+                      ? "is-invalid"
+                      : ""
+                  }`}
                   {...formik.getFieldProps("gotACoupon")}
                 />
               </div>
               {formik.touched.gotACoupon && formik.errors.gotACoupon && (
-                <div className=" text-danger">
-                  {formik.errors.gotACoupon}
-                </div>
+                <div className=" text-danger">{formik.errors.gotACoupon}</div>
               )}
             </div>
 
@@ -132,17 +125,16 @@ function Checkout() {
               <div className="d-flex align-items-center justify-content-end  sm-device">
                 <input
                   type="text"
-                  className={`form-control  ${formik.touched.subTotal && formik.errors.subTotal
-                    ? "is-invalid"
-                    : ""
-                    }`}
+                  className={`form-control  ${
+                    formik.touched.subTotal && formik.errors.subTotal
+                      ? "is-invalid"
+                      : ""
+                  }`}
                   {...formik.getFieldProps("subTotal")}
                 />
               </div>
               {formik.touched.subTotal && formik.errors.subTotal && (
-                <div className="text-danger">
-                  {formik.errors.subTotal}
-                </div>
+                <div className="text-danger">{formik.errors.subTotal}</div>
               )}
             </div>
 
@@ -151,17 +143,16 @@ function Checkout() {
               <div className="d-flex align-items-center justify-content-end  sm-device">
                 <input
                   type="text"
-                  className={`form-control  ${formik.touched.shipping && formik.errors.shipping
-                    ? "is-invalid"
-                    : ""
-                    }`}
+                  className={`form-control  ${
+                    formik.touched.shipping && formik.errors.shipping
+                      ? "is-invalid"
+                      : ""
+                  }`}
                   {...formik.getFieldProps("shipping")}
                 />
               </div>
               {formik.touched.shipping && formik.errors.shipping && (
-                <div className="text-danger">
-                  {formik.errors.shipping}
-                </div>
+                <div className="text-danger">{formik.errors.shipping}</div>
               )}
             </div>
 
@@ -170,10 +161,11 @@ function Checkout() {
               <div className="d-flex align-items-center justify-content-end  sm-device">
                 <select
                   type="text"
-                  className={`form-select ${formik.touched.giftCard && formik.errors.giftCard
-                    ? "is-invalid"
-                    : ""
-                    }`}
+                  className={`form-select ${
+                    formik.touched.giftCard && formik.errors.giftCard
+                      ? "is-invalid"
+                      : ""
+                  }`}
                   {...formik.getFieldProps("giftCard")}
                   aria-label="Default select example"
                 >
@@ -183,9 +175,7 @@ function Checkout() {
                 </select>
               </div>
               {formik.touched.giftCard && formik.errors.giftCard && (
-                <div className="text-danger">
-                  {formik.errors.giftCard}
-                </div>
+                <div className="text-danger">{formik.errors.giftCard}</div>
               )}
             </div>
 
@@ -194,20 +184,18 @@ function Checkout() {
               <div className="d-flex align-items-center justify-content-end  sm-device">
                 <input
                   type="text"
-                  className={`form-control ${formik.touched.total && formik.errors.total
-                    ? "is-invalid"
-                    : ""
-                    }`}
+                  className={`form-control ${
+                    formik.touched.total && formik.errors.total
+                      ? "is-invalid"
+                      : ""
+                  }`}
                   {...formik.getFieldProps("total")}
                 />
               </div>
               {formik.touched.total && formik.errors.total && (
-                <div className="text-danger">
-                  {formik.errors.total}
-                </div>
+                <div className="text-danger">{formik.errors.total}</div>
               )}
             </div>
-
           </div>
         </div>
 
@@ -225,17 +213,16 @@ function Checkout() {
                 <input
                   type="text"
                   id="firstName"
-                  className={`form-control iconInput  ${formik.touched.firstName && formik.errors.firstName
-                    ? "is-invalid"
-                    : ""
-                    }`}
+                  className={`form-control iconInput  ${
+                    formik.touched.firstName && formik.errors.firstName
+                      ? "is-invalid"
+                      : ""
+                  }`}
                   {...formik.getFieldProps("firstName")}
                 />
               </div>
               {formik.touched.firstName && formik.errors.firstName && (
-                <div className="text-danger">
-                  {formik.errors.firstName}
-                </div>
+                <div className="text-danger">{formik.errors.firstName}</div>
               )}
             </div>
 
@@ -245,17 +232,16 @@ function Checkout() {
                 <input
                   type="text"
                   id="lastNmae"
-                  className={`form-control iconInput  ${formik.touched.lasttName && formik.errors.lasttName
-                    ? "is-invalid"
-                    : ""
-                    }`}
+                  className={`form-control iconInput  ${
+                    formik.touched.lasttName && formik.errors.lasttName
+                      ? "is-invalid"
+                      : ""
+                  }`}
                   {...formik.getFieldProps("lasttName")}
                 />
               </div>
               {formik.touched.lasttName && formik.errors.lasttName && (
-                <div className="text-danger">
-                  {formik.errors.lasttName}
-                </div>
+                <div className="text-danger">{formik.errors.lasttName}</div>
               )}
             </div>
 
@@ -265,17 +251,16 @@ function Checkout() {
                 <input
                   type="text"
                   id="address"
-                  className={`form-control iconInput  ${formik.touched.address && formik.errors.address
-                    ? "is-invalid"
-                    : ""
-                    }`}
+                  className={`form-control iconInput  ${
+                    formik.touched.address && formik.errors.address
+                      ? "is-invalid"
+                      : ""
+                  }`}
                   {...formik.getFieldProps("address")}
                 />
               </div>
               {formik.touched.address && formik.errors.address && (
-                <div className="text-danger">
-                  {formik.errors.address}
-                </div>
+                <div className="text-danger">{formik.errors.address}</div>
               )}
             </div>
 
@@ -285,18 +270,17 @@ function Checkout() {
                 <input
                   type="text"
                   id="appartment"
-                  className={`form-control iconInput  ${formik.touched.appartment && formik.errors.appartment
-                    ? "is-invalid"
-                    : ""
-                    }`}
+                  className={`form-control iconInput  ${
+                    formik.touched.appartment && formik.errors.appartment
+                      ? "is-invalid"
+                      : ""
+                  }`}
                   {...formik.getFieldProps("appartment")}
                 />
               </div>
-                {formik.touched.appartment && formik.errors.appartment && (
-                  <div className="text-danger">
-                    {formik.errors.appartment}
-                  </div>
-                )}
+              {formik.touched.appartment && formik.errors.appartment && (
+                <div className="text-danger">{formik.errors.appartment}</div>
+              )}
             </div>
 
             <div className="col-lg-6 col-md-6 col-12 mb-3">
@@ -305,17 +289,16 @@ function Checkout() {
                 <input
                   type="text"
                   id="country"
-                  className={`form-control iconInput  ${formik.touched.country && formik.errors.country
-                    ? "is-invalid"
-                    : ""
-                    }`}
+                  className={`form-control iconInput  ${
+                    formik.touched.country && formik.errors.country
+                      ? "is-invalid"
+                      : ""
+                  }`}
                   {...formik.getFieldProps("country")}
                 />
               </div>
               {formik.touched.country && formik.errors.country && (
-                <div className="text-danger">
-                  {formik.errors.country}
-                </div>
+                <div className="text-danger">{formik.errors.country}</div>
               )}
             </div>
 
@@ -325,17 +308,16 @@ function Checkout() {
                 <input
                   type="text"
                   id="state"
-                  className={`form-control iconInput  ${formik.touched.state && formik.errors.state
-                    ? "is-invalid"
-                    : ""
-                    }`}
+                  className={`form-control iconInput  ${
+                    formik.touched.state && formik.errors.state
+                      ? "is-invalid"
+                      : ""
+                  }`}
                   {...formik.getFieldProps("state")}
                 />
               </div>
               {formik.touched.state && formik.errors.state && (
-                <div className="text-danger">
-                  {formik.errors.state}
-                </div>
+                <div className="text-danger">{formik.errors.state}</div>
               )}
             </div>
 
@@ -345,17 +327,16 @@ function Checkout() {
                 <input
                   type="text"
                   id="pinCode"
-                  className={`form-control iconInput  ${formik.touched.pinCode && formik.errors.pinCode
-                    ? "is-invalid"
-                    : ""
-                    }`}
+                  className={`form-control iconInput  ${
+                    formik.touched.pinCode && formik.errors.pinCode
+                      ? "is-invalid"
+                      : ""
+                  }`}
                   {...formik.getFieldProps("pinCode")}
                 />
               </div>
               {formik.touched.pinCode && formik.errors.pinCode && (
-                <div className="text-danger">
-                  {formik.errors.pinCode}
-                </div>
+                <div className="text-danger">{formik.errors.pinCode}</div>
               )}
             </div>
 
@@ -365,17 +346,16 @@ function Checkout() {
                 <input
                   type="text"
                   id="phone"
-                  className={`form-control iconInput  ${formik.touched.Phone && formik.errors.Phone
-                    ? "is-invalid"
-                    : ""
-                    }`}
+                  className={`form-control iconInput  ${
+                    formik.touched.Phone && formik.errors.Phone
+                      ? "is-invalid"
+                      : ""
+                  }`}
                   {...formik.getFieldProps("Phone")}
                 />
               </div>
               {formik.touched.Phone && formik.errors.Phone && (
-                <div className="text-danger">
-                  {formik.errors.Phone}
-                </div>
+                <div className="text-danger">{formik.errors.Phone}</div>
               )}
             </div>
 
@@ -384,25 +364,23 @@ function Checkout() {
               <div className="d-flex align-items-center justify-content-start sm-device">
                 <input
                   type="checkbox"
-                  className="form-check-input ms-2 ">
-                </input>
+                  className="form-check-input ms-2 "
+                ></input>
               </div>
             </div>
-
           </div>
         </div>
 
         <div className="container">
-
           <div className="container-fluid my-5">
             <h4>
               <b>Payment Options</b>
             </h4>
           </div>
 
-          <div className='container'>
+          <div className="container">
             <div className="my-4">
-              <div className='card bg-white mx-auto p-3 '>
+              <div className="card bg-white mx-auto p-3 ">
                 <div className="form-group mt-2">
                   <input
                     type="radio"
@@ -436,26 +414,31 @@ function Checkout() {
                   </div>
                 )}
             </div>
-            <input
-              type="checkbox"
-              className="form-check-input me-2">
-            </input>
+            <input type="checkbox" className="form-check-input me-2"></input>
             <label>Add a note to your order</label>
             <hr></hr>
-            <p> By proceeding with your purchase you agree to our
-              <a href="!#" className='link-style'>Terms and Conditions</a> and <a href="!#" className='link-style'>Privacy Policy.</a>
+            <p>
+              {" "}
+              By proceeding with your purchase you agree to our
+              <a href="!#" className="link-style">
+                Terms and Conditions
+              </a>{" "}
+              and{" "}
+              <a href="!#" className="link-style">
+                Privacy Policy.
+              </a>
             </p>
 
-            <div className=' d-flex justify-content-center align-items-center mb-3'>
-              <button className='btn btn-primary' type="submit">Place Order</button>
+            <div className=" d-flex justify-content-center align-items-center mb-3">
+              <button className="btn btn-primary" type="submit">
+                Place Order
+              </button>
             </div>
           </div>
         </div>
-
       </form>
-
     </section>
-  )
+  );
 }
 
-export default Checkout
+export default Checkout;

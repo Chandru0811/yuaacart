@@ -6,12 +6,12 @@ import { Link } from "react-router-dom";
 
 function Cart() {
   const [data, setData] = useState([]);
-  console.log("Data", data);
-
+  // console.log("Data", data);
+  const cartId = sessionStorage.getItem("cartId");
 
   const fetchData = async () => {
     try {
-      const response = await api.get(`cartItems/${1}`);
+      const response = await api.get(`cartItems/${cartId}`);
       // console.log(response.data);
       if (response.status === 200) {
         setData(response.data);
@@ -21,8 +21,6 @@ function Cart() {
     }
   };
   useEffect(() => {
-   
-
     fetchData();
   }, []);
 

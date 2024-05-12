@@ -28,7 +28,6 @@ function Header() {
   const [showProfile, setShowProfile] = useState(false);
   const [TotalItems, setTotalItems] = useState([]);
 
-
   console.log(isAuthenticated);
 
   const handleProfileClose = () => setShowProfile(false);
@@ -44,21 +43,21 @@ function Header() {
     console.log("object");
   }
 
-  
-    const gettotalItems = async () => {
-      try {
-        const response = await axios.get(
-          "https://sgitjobs.com/ShoppingCart/public/api/totalitems"
-        );
-        console.log("items", response.data);
-        setTotalItems(response.data)
-      } catch (error) {
-        console.error("Error fetching product data:", error);
-      }
-    };
-    useEffect(() => {
-      gettotalItems()
-    },[])
+  const gettotalItems = async () => {
+    try {
+      const response = await axios.get(
+        "https://sgitjobs.com/ShoppingCart/public/api/totalitems"
+      );
+      console.log("items", response.data);
+      sessionStorage.setItem("cartId", response.data.cart_id);
+      setTotalItems(response.data);
+    } catch (error) {
+      console.error("Error fetching product data:", error);
+    }
+  };
+  useEffect(() => {
+    gettotalItems();
+  }, []);
 
   return (
     <>
@@ -66,7 +65,7 @@ function Header() {
         key={expand}
         expand={expand}
         className="NavBar-Component bg-white "
-      // style={{ backgroundColor: "#ebf6ff" }}
+        // style={{ backgroundColor: "#ebf6ff" }}
       >
         <Container fluid>
           <Navbar.Brand>
