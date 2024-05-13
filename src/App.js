@@ -15,6 +15,7 @@ import Contactus from "./pages/Contactus";
 import WishList from "./pages/WishList";
 import Faq from "./pages/Faq";
 import { ToastContainer } from "react-toastify";
+import ProductBascedCategory from "./pages/Products/ProductBascedCategory";
 
 function App() {
   const [headerKey, setHeaderKey] = useState(0);
@@ -61,6 +62,10 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/productlist" element={<ProductList />} />
+              <Route
+                path="/catrgoryproduct/:slug"
+                element={<ProductBascedCategory />}
+              />
               <Route path="*" element={<Home />} />
               <Route path="/register" element={<Signup />} />
               <Route path="/login" element={<Login onLogin={handleLogin} />} />

@@ -29,7 +29,7 @@ function Login({ onLogin }) {
         const response = await api.post("auth/login", formdata);
         // console.log(response)
         if (response.data.statusCode === 200) {
-          console.log(response.data.data.token);
+          toast.success("Login Successfully");
           sessionStorage.setItem("token", response.data.data.token);
           onLogin();
           navigate("/checkout");
@@ -38,7 +38,8 @@ function Login({ onLogin }) {
         }
       } catch (error) {
         if (error?.response?.status === 404) {
-          toast.error(error?.response?.data?.data?.email[0]);
+          toast.error(error?.response?.data?.message);
+          // toast.error(error?.response?.data?.data?.email[0]);
         } else {
           toast.error(error?.response?.data?.data?.message);
         }

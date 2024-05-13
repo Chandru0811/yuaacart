@@ -8,14 +8,14 @@ import { useEffect, useState } from "react";
 import { BsTextIndentLeft } from "react-icons/bs";
 import { FaRegHeart } from "react-icons/fa";
 import {
-  Button,
+  // Button,
   Container,
-  FormControl,
-  InputGroup,
+  // FormControl,
+  // InputGroup,
   Nav,
 } from "react-bootstrap";
 import Profile from "./Profile";
-import { FiSearch } from "react-icons/fi";
+// import { FiSearch } from "react-icons/fi";
 import { Link, useNavigate } from "react-router-dom";
 import api from "../config/URL";
 
@@ -24,6 +24,7 @@ function Header({ key, isLoggedIn, onLogout }) {
   const navigate = useNavigate();
   const [showProfile, setShowProfile] = useState(false);
   const [TotalItems, setTotalItems] = useState([]);
+  const [categories, setCategories] = useState([]);
 
   const handleProfileClose = () => setShowProfile(false);
   const handleProfileShow = () => setShowProfile(true);
@@ -43,7 +44,19 @@ function Header({ key, isLoggedIn, onLogout }) {
       console.error("Error fetching product data:", error);
     }
   };
+
+  const getAllCategories = async () => {
+    try {
+      const response = await api.get("categories");
+      // console.log("items", response.data);
+      setCategories(response.data.data.category);
+    } catch (error) {
+      console.error("Error fetching product data:", error);
+    }
+  };
+
   useEffect(() => {
+    getAllCategories();
     gettotalItems();
   }, [key]);
 
@@ -121,7 +134,7 @@ function Header({ key, isLoggedIn, onLogout }) {
       </Navbar>
 
       {/* Second Navbar */}
-      <Navbar className="bg-primary mb-3 secNavBar-Component">
+      <Navbar className="bg-primary py-3 mb-3 secNavBar-Component">
         <Container fluid>
           <Navbar.Toggle aria-controls="basic-navbar-nav justify-content-between" />
 
@@ -134,19 +147,20 @@ function Header({ key, isLoggedIn, onLogout }) {
             }
             id={`offcanvasNavbarDropdown-expand-${expand} `}
           >
-            <NavDropdown.Item>
-              <Link to="" className=" text-black ">
-                Uncategorized
-              </Link>
-            </NavDropdown.Item>
-            <NavDropdown.Item>
-              <Link to="" className=" text-black ">
-                Dell Laptops
-              </Link>
-            </NavDropdown.Item>
+            {categories &&
+              categories.map((category) => (
+                <NavDropdown.Item>
+                  <Link
+                    to={`/catrgoryproduct/${category.slug}`}
+                    className=" text-black "
+                  >
+                    {category.name}
+                  </Link>
+                </NavDropdown.Item>
+              ))}
           </NavDropdown>
 
-          <div className="d-flex " style={{ minWidth: "50%" }}>
+          {/* <div className="d-flex " style={{ minWidth: "50%" }}>
             <InputGroup>
               <FormControl
                 placeholder="Search Products.."
@@ -165,6 +179,7 @@ function Header({ key, isLoggedIn, onLogout }) {
               </Button>
             </InputGroup>
           </div>
+          */}
           <div className=" d-flex gap-3 ">
             <NavDropdown
               title={

@@ -173,3 +173,17 @@ a {
 button:not(:disabled) {
   z-index: 10 !important;
 }
+
+.image-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 200px; /* Adjust this value as needed */
+}
+
+.image-container img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+}

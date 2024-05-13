@@ -43,13 +43,17 @@ function Signup() {
         });
         console.log("values", values);
         if (response.status === 200) {
-          toast.success(response.data.message);
+          toast.success("Login Successfully");
           navigate("/login");
         } else {
           toast.error(response.data.message);
         }
       } catch (error) {
-        toast.error(error);
+        if (error?.response?.status === 404) {
+          toast.error(error?.response?.data?.message);
+        } else {
+          toast.error(error?.response?.data?.message);
+        }
       }
     },
   });

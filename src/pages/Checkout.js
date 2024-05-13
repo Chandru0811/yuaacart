@@ -3,6 +3,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
 import api from "../config/URL";
+import { toast } from "react-toastify";
 
 function Checkout() {
   // const { id } = useParams();
@@ -53,15 +54,14 @@ function Checkout() {
     onSubmit: async (values) => {
       console.log(values);
       try {
-        const response = await api.post(`checkout/${cartId}`, values, {
+        const response = await api.post(`checkout/${cartId}`, {
           headers: {
             "Content-Type": "application/json",
-            //Authorization: `Bearer ${token}`,
           },
         });
         if (response.status === 201) {
-          console.log(response.data);
-          navigate("/productlist");
+          toast.success("Successfully Checkout");
+          navigate("/");
         }
       } catch (error) {
         console.error("Error fetching data:", error);
