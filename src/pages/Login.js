@@ -1,17 +1,18 @@
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Logo from "../assets/Yuaacart-Logo.png";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
 import { toast } from "react-toastify";
+import { Api } from "@mui/icons-material";
+import api from "../config/URL";
 
 const validationSchema = Yup.object({
   email: Yup.string().required("*Employee id is required"),
   password: Yup.string().required("*Employee name is required"),
 });
 
-function Login() {
+function Login({ onLogin }) {
   const navigate = useNavigate();
 
   const formik = useFormik({
@@ -21,20 +22,17 @@ function Login() {
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
-      console.log(values);
+      // console.log(values);
       const formdata = new FormData();
       formdata.append("email", values.email);
       formdata.append("password", values.password);
       try {
-        const response = await axios.post(
-          "https://sgitjobs.com/ShoppingCart/public/api/auth/login",
-          formdata
-        );
+        const response = await api.post("auth/login", formdata);
         // console.log(response)
         if (response.data.statusCode === 200) {
           console.log(response.data.data.token);
           sessionStorage.setItem("token", response.data.data.token);
-          sessionStorage.setItem("athe", true);
+          onLogin();
           navigate("/checkout");
         } else {
           toast.error(response.data.message);
@@ -56,7 +54,7 @@ function Login() {
             className="img-fluid mt-4"
             src={Logo}
             alt="YuaaCart"
-            style={{ width: "10%" }}
+            style={{ width: "15%" }}
           />
         </div>
         <form onSubmit={formik.handleSubmit}>
@@ -84,7 +82,7 @@ function Login() {
               <div className="form-group mt-2">
                 <p>Password</p>
                 <input
-                  type="text"
+                  type="password"
                   {...formik.getFieldProps("password")}
                   className={`form-control  ${
                     formik.touched.password && formik.errors.password
@@ -100,14 +98,14 @@ function Login() {
               </div>
 
               <button
-                className="btn my-2 "
+                className="btn my-3"
                 type="submit"
                 style={{ background: "#4EA7FB" }}
               >
                 Continue
               </button>
               <p>
-                By continuing, you agree to Amazon's{" "}
+                By continuing, you agree to Yuaacart{" "}
                 <a href="!#" className="link-style">
                   Conditions of Use
                 </a>{" "}

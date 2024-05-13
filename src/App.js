@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Home from "./components/Home";
 import { Products } from "./pages/Products/Products";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
@@ -17,22 +17,64 @@ import Faq from "./pages/Faq";
 import { ToastContainer } from "react-toastify";
 
 function App() {
+  const [headerKey, setHeaderKey] = useState(0);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const handleLogin = () => {
+    sessionStorage.setItem("isLoggedIn", true);
+    setIsLoggedIn(true);
+    remountHeader();
+  };
+
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+    remountHeader();
+    sessionStorage.removeItem("token");
+    sessionStorage.removeItem("isLoggedIn");
+  };
+
+  useEffect(() => {
+    const isLoginFromStorage = sessionStorage.getItem("isLoggedIn");
+    const isLoginBoolean = isLoginFromStorage === "true";
+    if (isLoggedIn !== isLoginBoolean) {
+      setIsLoggedIn(isLoginBoolean);
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const remountHeader = () => {
+    setHeaderKey((prevKey) => prevKey + 1);
+  };
+
   return (
     <Products>
       <div className="App">
         <BrowserRouter>
           <ToastContainer position="top-center" />
-          <Header />
+          <Header
+            key={headerKey}
+            isLoggedIn={isLoggedIn}
+            onLogout={handleLogout}
+          />
           <div style={{ minHeight: "90vh" }}>
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/productlist" element={<ProductList />} />
               <Route path="*" element={<Home />} />
               <Route path="/register" element={<Signup />} />
-              <Route path="/login" element={<Login />} />
+              <Route path="/login" element={<Login onLogin={handleLogin} />} />
               <Route path="/checkout" element={<Checkout />} />
-              <Route path="/cart" element={<Cart />} />
-              <Route path="/discription/:id" element={<Discription />} />
+              <Route path="/cart" element={<Cart isLoggedIn={isLoggedIn} />} />
+              <Route
+                path="/discription/:id"
+                element={
+                  <Discription
+                    onRemountHeader={remountHeader}
+                    isLoggedIn={isLoggedIn}
+                  />
+                }
+              />
               <Route path="/contactus" element={<Contactus />} />
               <Route path="/wishlist" element={<WishList />} />
               <Route path="/faq" element={<Faq />} />

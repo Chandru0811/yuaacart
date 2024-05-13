@@ -8,7 +8,6 @@ import { useEffect, useState } from "react";
 import { BsTextIndentLeft } from "react-icons/bs";
 import { FaRegHeart } from "react-icons/fa";
 import {
-  Badge,
   Button,
   Container,
   FormControl,
@@ -17,38 +16,27 @@ import {
 } from "react-bootstrap";
 import Profile from "./Profile";
 import { FiSearch } from "react-icons/fi";
-import { Link } from "react-router-dom";
-import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
+import api from "../config/URL";
 
-function Header() {
+function Header({ key, isLoggedIn, onLogout }) {
   const expand = "lg";
-  const token = localStorage.getItem("token");
-  const athe = localStorage.getItem("athe");
-  const [isAuthenticated, setisAuthenticated] = useState(athe);
+  const navigate = useNavigate();
   const [showProfile, setShowProfile] = useState(false);
   const [TotalItems, setTotalItems] = useState([]);
 
-  console.log(isAuthenticated);
-
   const handleProfileClose = () => setShowProfile(false);
   const handleProfileShow = () => setShowProfile(true);
-  // console.log("Offcanvas", Offcanvas.defaultProps);
-  console.log(typeof token);
-  const logout = () => {
-    setisAuthenticated(false);
-    localStorage.removeItem("token");
-  };
 
-  if (isAuthenticated) {
-    console.log("object");
-  }
+  const handleLogout = () => {
+    onLogout();
+    navigate("/login");
+  };
 
   const gettotalItems = async () => {
     try {
-      const response = await axios.get(
-        "https://sgitjobs.com/ShoppingCart/public/api/totalitems"
-      );
-      console.log("items", response.data);
+      const response = await api.get("totalitems");
+      // console.log("items", response.data);
       sessionStorage.setItem("cartId", response.data.cart_id);
       setTotalItems(response.data);
     } catch (error) {
@@ -57,7 +45,7 @@ function Header() {
   };
   useEffect(() => {
     gettotalItems();
-  }, []);
+  }, [key]);
 
   return (
     <>
@@ -94,20 +82,26 @@ function Header() {
                 <Nav.Link>
                   {/* onClick={handleProfileShow}  */}
                   {/* <Profile show={handleProfileShow} handleClose={handleProfileClose}/> */}
-                  {token ? (
-                    <Link to={"/login"} className="heading pb-2">
-                      My Account{" "}
-                    </Link>
-                  ) : (
+                  {isLoggedIn ? (
                     <Link onClick={handleProfileShow} className="heading pb-2">
                       My Account
+                    </Link>
+                  ) : (
+                    <Link to={"/login"} className="heading pb-2">
+                      My Account{" "}
                     </Link>
                   )}
                 </Nav.Link>
                 <Nav.Link>
-                  <Link to={"/checkout"} className="heading pb-2">
-                    Checkout
-                  </Link>
+                  {isLoggedIn ? (
+                    <Link to={"/checkout"} className="heading pb-2">
+                      Checkout
+                    </Link>
+                  ) : (
+                    <Link to={"/login"} className="heading pb-2">
+                      Checkout
+                    </Link>
+                  )}
                 </Nav.Link>
                 <Nav.Link>
                   <Link to={"/faq"} className="heading pb-2">
@@ -159,6 +153,7 @@ function Header() {
                 aria-label="Search Products"
                 className="rounded-pill border-0"
               />
+              &nbsp;&nbsp;
               <Button
                 className="rounded-pill"
                 style={{
@@ -183,8 +178,10 @@ function Header() {
               drop="start"
               variant="secondary"
             >
-              {token ? (
-                <NavDropdown.Item onClick={logout}>Logout</NavDropdown.Item>
+              {isLoggedIn ? (
+                <NavDropdown.Item onClick={handleLogout}>
+                  Logout
+                </NavDropdown.Item>
               ) : (
                 <NavDropdown.Item>
                   <Link to="/login" className="text-black">
@@ -197,7 +194,7 @@ function Header() {
               <Link to="/cart">
                 <IoCartOutline className="heading text-white" size={25} />
                 <span class="position-absolute top-5 start-80 translate-middle badge rounded-pill bg-danger">
-                  {TotalItems.total_items}
+                  {TotalItems.total_items || 0}
                 </span>
               </Link>
             </Nav.Link>

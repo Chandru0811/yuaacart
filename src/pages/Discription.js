@@ -7,13 +7,12 @@ import Drift from "drift-zoom";
 import axios from "axios";
 import ProductCarouselList from "./Products/ProductCarouselList";
 
-export default function Description() {
+export default function Description({ onRemountHeader, isLoggedIn }) {
   const { id } = useParams();
   const [data, setData] = useState([]);
   const [mainImage, setMainImage] = useState();
   const [images, setImages] = useState([]);
   const [quantity, setQuantity] = useState(1);
-  const token = localStorage.getItem("token");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -34,6 +33,7 @@ export default function Description() {
     };
 
     fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
   const handleChange = (imagePath) => {
@@ -53,13 +53,11 @@ export default function Description() {
     formData.append("handling", 1);
 
     try {
-      const response = await axios.post(
-        `https://sgitjobs.com/ShoppingCart/public/api/addtocart/${data.slug}`,
-        formData
-      );
+      const response = await api.post(`addtocart/${data.slug}`, formData);
       console.log(response.data);
       if (response.status === 200) {
         toast.success(response.data.message);
+        onRemountHeader();
       }
     } catch (error) {
       // console.log(error?.response?.status);
@@ -126,7 +124,7 @@ export default function Description() {
               >
                 Add To Cart
               </button>
-              {token ? (
+              {isLoggedIn ? (
                 <Link to="/checkout">
                   <button
                     className="btn"

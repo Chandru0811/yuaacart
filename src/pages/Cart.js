@@ -4,7 +4,7 @@ import api from "../config/URL";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 
-function Cart() {
+function Cart({ isLoggedIn }) {
   const [data, setData] = useState([]);
   // console.log("Data", data);
   const cartId = sessionStorage.getItem("cartId");
@@ -22,6 +22,7 @@ function Cart() {
   };
   useEffect(() => {
     fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -105,11 +106,19 @@ function Cart() {
                   $ {parseFloat(data?.itemDetails?.total).toFixed(2)}
                 </h5>
               </div>
-              <Link to="/checkout">
-                <p className="d-flex justify-content-center ">
-                  Proceed to Checkout
-                </p>
-              </Link>
+              {isLoggedIn ? (
+                <Link to="/checkout">
+                  <p className="d-flex justify-content-center ">
+                    Proceed to Checkout
+                  </p>
+                </Link>
+              ) : (
+                <Link to="/login">
+                  <p className="d-flex justify-content-center ">
+                    Proceed to Checkout
+                  </p>
+                </Link>
+              )}
             </div>
           </div>
         </div>
