@@ -1,9 +1,8 @@
 import React from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import api from "../config/URL";
-import { toast } from "react-toastify";
 
 function Checkout() {
   // const { id } = useParams();
@@ -54,14 +53,15 @@ function Checkout() {
     onSubmit: async (values) => {
       console.log(values);
       try {
-        const response = await api.post(`checkout/${cartId}`, {
+        const response = await api.post(`checkout/${cartId}`, values, {
           headers: {
             "Content-Type": "application/json",
+            //Authorization: `Bearer ${token}`,
           },
         });
         if (response.status === 201) {
-          toast.success("Successfully Checkout");
-          navigate("/");
+          console.log(response.data);
+          navigate("/productlist");
         }
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -424,9 +424,9 @@ function Checkout() {
                 Terms and Conditions
               </a>{" "}
               and{" "}
-              <a href="!#" className="link-style">
+              <Link to={"/privacyandpolicy"} className="link-style">
                 Privacy Policy.
-              </a>
+              </Link>
             </p>
 
             <div className=" d-flex justify-content-center align-items-center mb-3">

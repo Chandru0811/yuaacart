@@ -110,9 +110,9 @@ function Login({ onLogin }) {
                   Conditions of Use
                 </a>{" "}
                 and{" "}
-                <a href="!#" className="link-style">
-                  Privacy Notice.
-                </a>
+                <Link to={"/privacyandpolicy"} className="link-style">
+                  Privacy Policy.
+                </Link>
               </p>
             </div>
           </div>

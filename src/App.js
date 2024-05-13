@@ -16,6 +16,7 @@ import WishList from "./pages/WishList";
 import Faq from "./pages/Faq";
 import { ToastContainer } from "react-toastify";
 import ProductBascedCategory from "./pages/Products/ProductBascedCategory";
+import PrivacyAndPolicy from "./pages/PrivacyAndPolicy";
 
 function App() {
   const [headerKey, setHeaderKey] = useState(0);
@@ -83,6 +84,7 @@ function App() {
               <Route path="/contactus" element={<Contactus />} />
               <Route path="/wishlist" element={<WishList />} />
               <Route path="/faq" element={<Faq />} />
+              <Route path="/privacyandpolicy" element={<PrivacyAndPolicy />} />
             </Routes>
           </div>
           <Footer />
