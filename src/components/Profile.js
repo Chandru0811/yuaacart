@@ -1,12 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import Profiles from "../assets/profiles.png";
-import {
-    Container,
-    Nav,
-    Navbar,
-    NavDropdown,
-    Offcanvas,
-  } from "react-bootstrap";
+import { Offcanvas } from "react-bootstrap";
 import { FaCartShopping } from "react-icons/fa6";
 import { MdDownload } from "react-icons/md";
 import { IoLocation } from "react-icons/io5";
@@ -14,14 +8,11 @@ import { MdLocalShipping } from "react-icons/md";
 import { RiAccountCircleFill } from "react-icons/ri";
 import { IoLogOutOutline } from "react-icons/io5";
 import { IoIosArrowForward } from "react-icons/io";
-import { MdAccountCircle } from "react-icons/md";
 
 function Profile({ show, handleClose }) {
-  
   return (
     <>
-    
-      <Offcanvas show={show} onHide={handleClose} style={{zIndex: "9999"}}>
+      <Offcanvas show={show} onHide={handleClose} style={{ zIndex: "9999" }}>
         <Offcanvas.Header closeButton>
           <b> My Account</b>
         </Offcanvas.Header>
@@ -49,7 +40,7 @@ function Profile({ show, handleClose }) {
             <div className="me-2">
               <FaCartShopping style={{ color: "18b5fc" }} />
             </div>
-            <div  style={{cursor: 'pointer'}}>Orders</div>
+            <div style={{ cursor: "pointer" }}>Orders</div>
             <div className="ms-auto">
               <IoIosArrowForward />
             </div>
@@ -59,7 +50,7 @@ function Profile({ show, handleClose }) {
             <div className="me-2">
               <MdDownload style={{ color: "18b5fc" }} />
             </div>
-            <div  style={{cursor: 'pointer'}}>Downloads</div>
+            <div style={{ cursor: "pointer" }}>Downloads</div>
             <div className="ms-auto">
               <IoIosArrowForward />
             </div>
@@ -68,7 +59,7 @@ function Profile({ show, handleClose }) {
             <div className="me-2">
               <IoLocation style={{ color: "18b5fc" }} />
             </div>
-            <div  style={{cursor: 'pointer'}}>Billing Address</div>
+            <div style={{ cursor: "pointer" }}>Billing Address</div>
             <div className="ms-auto">
               <IoIosArrowForward />
             </div>
@@ -77,7 +68,7 @@ function Profile({ show, handleClose }) {
             <div className="me-2">
               <MdLocalShipping style={{ color: "18b5fc" }} />
             </div>
-            <div  style={{cursor: 'pointer'}}>Shipping Address</div>
+            <div style={{ cursor: "pointer" }}>Shipping Address</div>
             <div className="ms-auto">
               <IoIosArrowForward />
             </div>
@@ -86,7 +77,7 @@ function Profile({ show, handleClose }) {
             <div className="me-2">
               <RiAccountCircleFill style={{ color: "18b5fc" }} />
             </div>
-            <div  style={{cursor: 'pointer'}}>Account Details</div>
+            <div style={{ cursor: "pointer" }}>Account Details</div>
             <div className="ms-auto">
               <IoIosArrowForward />
             </div>
@@ -95,7 +86,7 @@ function Profile({ show, handleClose }) {
             <div className="me-2">
               <IoLogOutOutline style={{ color: "18b5fc" }} />
             </div>
-            <div  style={{cursor: 'pointer'}}>Logout</div>
+            <div style={{ cursor: "pointer" }}>Logout</div>
             <div className="ms-auto">
               <IoIosArrowForward />
             </div>

@@ -1,12 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import leftImage1 from "../assets/image_2024_04_09T09_17_20_806Z.png";
-import rightImage1 from "../assets/image_2024_04_09T09_17_20_808Z.png";
-import leftImage2 from "../assets/image_2024_04_09T09_17_20_809Z.png";
-import rightImage2 from "../assets/image_2024_04_09T09_17_20_810Z.png";
-import smartimg from "../assets/gitignore.png";
-import advimage from "../assets/image_2024_05_06T13_08_11_079Z.png";
 import { Link } from "react-router-dom";
 import ProductList from "../pages/Products/ProductCarouselList";
 import axios from "axios";
@@ -17,7 +11,7 @@ import { TopProductCarouselList } from "../pages/Products/TopProductCarouselList
     const [sliderImageUrl, setSliderImageUrl] = useState([]);
     const [topbanner, setTopBanner] = useState([]);
     const [bottombanner, setBottomBanner] = useState([]);
-    const [bannerImageUrl, setBannerImageUrl] = useState([]);
+    // const [bannerImageUrl, setBannerImageUrl] = useState([]);
     // console.log("slider",sliderImageUrl);
   
     const getProductData = async () => {
@@ -73,6 +67,7 @@ import { TopProductCarouselList } from "../pages/Products/TopProductCarouselList
       getProductData1();
       getProductDatas();
       getProductDatas1();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
   // const sliderImageUrl = [

@@ -8,7 +8,7 @@ import { FaHeart } from "react-icons/fa";
 const ProductList = () => {
   const { productList } = useContext(ProductData);
   const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage, setPostsPerPage] = useState(10);
+  const [postsPerPage] = useState(10);
 
   const lastPostIndex = currentPage * postsPerPage;
   const firstPostIndex = lastPostIndex - postsPerPage;

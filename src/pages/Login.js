@@ -4,7 +4,6 @@ import React from "react";
 import Logo from "../assets/Yuaacart-Logo.png";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { Api } from "@mui/icons-material";
 import api from "../config/URL";
 
 const validationSchema = Yup.object({

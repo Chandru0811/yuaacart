@@ -4,7 +4,6 @@ import { Tab, Tabs } from "react-bootstrap";
 import api from "../config/URL";
 import { toast } from "react-toastify";
 import Drift from "drift-zoom";
-import axios from "axios";
 import ProductCarouselList from "./Products/ProductCarouselList";
 
 export default function Description({ onRemountHeader, isLoggedIn }) {
