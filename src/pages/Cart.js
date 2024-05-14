@@ -17,7 +17,7 @@ function Cart({ isLoggedIn }) {
         setData(response.data);
       }
     } catch (error) {
-      toast.error("Error Fetching Data: " + error.message);
+      toast.warning("No Product in a cart");
     }
   };
   useEffect(() => {
