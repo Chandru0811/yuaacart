@@ -14,13 +14,15 @@ import "./styles/custom.css";
 import Contactus from "./pages/Contactus";
 import WishList from "./pages/WishList";
 import Faq from "./pages/Faq";
-import { ToastContainer } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import ProductBascedCategory from "./pages/Products/ProductBascedCategory";
 import PrivacyAndPolicy from "./pages/PrivacyAndPolicy";
+import api from "./config/URL";
 
 function App() {
   const [headerKey, setHeaderKey] = useState(0);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const token = sessionStorage.getItem("token");
 
   const handleLogin = () => {
     sessionStorage.setItem("isLoggedIn", true);
@@ -28,11 +30,24 @@ function App() {
     remountHeader();
   };
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
     setIsLoggedIn(false);
     remountHeader();
     sessionStorage.removeItem("token");
     sessionStorage.removeItem("isLoggedIn");
+    try {
+      const response = await api.post(`auth/logout`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (response.status === 200) {
+        toast.success(response.data.message);
+      }
+    } catch (error) {
+      toast.error("Logout Unsuccessfull");
+    }
   };
 
   useEffect(() => {
@@ -52,7 +67,7 @@ function App() {
   return (
     <Products>
       <div className="App">
-        <BrowserRouter>
+        <BrowserRouter basename="/yuaacart">
           <ToastContainer position="top-center" />
           <Header
             key={headerKey}
@@ -70,7 +85,10 @@ function App() {
               <Route path="*" element={<Home />} />
               <Route path="/register" element={<Signup />} />
               <Route path="/login" element={<Login onLogin={handleLogin} />} />
-              <Route path="/checkout" element={<Checkout />} />
+              <Route
+                path="/checkout"
+                element={<Checkout onRemountHeader={remountHeader} />}
+              />
               <Route path="/cart" element={<Cart isLoggedIn={isLoggedIn} />} />
               <Route
                 path="/discription/:id"

@@ -113,7 +113,7 @@ function Cart({ isLoggedIn }) {
                   </p>
                 </Link>
               ) : (
-                <Link to="/login">
+                <Link to="/login?path=/checkout">
                   <p className="d-flex justify-content-center ">
                     Proceed to Checkout
                   </p>

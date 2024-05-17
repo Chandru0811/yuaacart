@@ -50,7 +50,7 @@ export const TopProductCarouselList = () => {
       slidesToSlide: 1,
     },
   };
-  
+
   return (
     <div>
       <Carousel
@@ -92,7 +92,10 @@ export const TopProductCarouselList = () => {
                     </span>
                   </button>
                 </div>
-                <Link to="/discription" style={{ textDecoration: "none" }}>
+                <Link
+                  to={`/discription/${product.id}`}
+                  style={{ textDecoration: "none" }}
+                >
                   <div
                     className="d-flex align-items-center justify-content-center image-container"
                     style={{ maxHeight: "100%", maxWidth: "93%" }}
@@ -107,11 +110,14 @@ export const TopProductCarouselList = () => {
                 </Link>
               </div>
               <Link
-                to="/discription"
+                to={`/discription/${product.id}`}
                 style={{ textDecoration: "none", color: "black" }}
               >
                 <div class="card-body pt-0">
-                <h5 className="" >{`${(product.name).split(' ').slice(0, 7).join(' ')}...`}</h5>
+                  <h5 className="">{`${product.name
+                    .split(" ")
+                    .slice(0, 7)
+                    .join(" ")}...`}</h5>
                   <s className="card-text">
                     ${parseFloat(product.list_price).toFixed(2)}
                   </s>
@@ -125,4 +131,4 @@ export const TopProductCarouselList = () => {
       </Carousel>
     </div>
   );
-}
+};

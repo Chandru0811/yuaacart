@@ -48,7 +48,7 @@ function Header({ key, isLoggedIn, onLogout }) {
   const getAllCategories = async () => {
     try {
       const response = await api.get("categories");
-      // console.log("items", response.data);
+      console.log("Categories", response.data);
       setCategories(response.data.data.category);
     } catch (error) {
       console.error("Error fetching product data:", error);
@@ -100,7 +100,7 @@ function Header({ key, isLoggedIn, onLogout }) {
                       My Account
                     </Link>
                   ) : (
-                    <Link to={"/login"} className="heading pb-2">
+                    <Link to={"/login?path=/"} className="heading pb-2">
                       My Account{" "}
                     </Link>
                   )}
@@ -111,7 +111,7 @@ function Header({ key, isLoggedIn, onLogout }) {
                       Checkout
                     </Link>
                   ) : (
-                    <Link to={"/login"} className="heading pb-2">
+                    <Link to={"/login?path=/checkout"} className="heading pb-2">
                       Checkout
                     </Link>
                   )}
@@ -199,7 +199,7 @@ function Header({ key, isLoggedIn, onLogout }) {
                 </NavDropdown.Item>
               ) : (
                 <NavDropdown.Item>
-                  <Link to="/login" className="text-black">
+                  <Link to="/login?path=/" className="text-black">
                     Login
                   </Link>
                 </NavDropdown.Item>
@@ -215,7 +215,7 @@ function Header({ key, isLoggedIn, onLogout }) {
             </Nav.Link>
 
             <Nav.Link>
-              <Link to="">
+              <Link to="#">
                 <FaRegHeart className="heading text-white " size={20} />
               </Link>
             </Nav.Link>

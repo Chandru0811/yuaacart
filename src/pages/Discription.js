@@ -133,7 +133,7 @@ export default function Description({ onRemountHeader, isLoggedIn }) {
                   </button>
                 </Link>
               ) : (
-                <Link to="/login">
+                <Link to="/login?path=/checkout">
                   <button
                     className="btn"
                     style={{ backgroundColor: "#18b5fc", color: "white" }}

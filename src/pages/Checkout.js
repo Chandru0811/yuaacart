@@ -1,13 +1,16 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { Link, useNavigate } from "react-router-dom";
 import api from "../config/URL";
+import { toast } from "react-toastify";
 
-function Checkout() {
+function Checkout({ onRemountHeader }) {
   // const { id } = useParams();
   const navigate = useNavigate();
+  const [data, setData] = useState({});
   const cartId = sessionStorage.getItem("cartId");
+  const token = sessionStorage.getItem("token");
 
   const validationSchema = Yup.object({
     orderSummary: Yup.string().required("*Summary is required"),
@@ -53,14 +56,16 @@ function Checkout() {
     onSubmit: async (values) => {
       console.log(values);
       try {
-        const response = await api.post(`checkout/${cartId}`, values, {
+        const response = await api.post(`auth/checkout/${cartId}`, values, {
           headers: {
             "Content-Type": "application/json",
-            //Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${token}`,
           },
         });
-        if (response.status === 201) {
+        if (response.status === 200) {
           console.log(response.data);
+          toast.success(response.data.message);
+          onRemountHeader();
           navigate("/productlist");
         }
       } catch (error) {
@@ -68,6 +73,35 @@ function Checkout() {
       }
     },
   });
+
+  const getCheckoutData = async () => {
+    try {
+      const response = await api.get(`auth/checkoutDetail/${cartId}`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log(response.data);
+      if (response.status === 200) {
+        setData(response.data);
+        formik.setFieldValue(
+          "subTotal",
+          parseFloat(response.data.cartamount).toFixed(2)
+        );
+        formik.setFieldValue(
+          "total",
+          parseFloat(response.data.cartamount).toFixed(2)
+        );
+      }
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  useEffect(() => {
+    getCheckoutData();
+  }, []);
 
   return (
     <section>
@@ -82,20 +116,15 @@ function Checkout() {
             <div className="col-lg-6 col-md-6 col-12 mb-3">
               <lable>Order Summary</lable> &nbsp;&nbsp;
               <div className="d-flex align-items-center justify-content-end  sm-device">
-                <select
-                  className={`form-select ${
+                <textarea
+                  className={`form-control ${
                     formik.touched.orderSummary && formik.errors.orderSummary
                       ? "is-invalid"
                       : ""
                   }`}
                   {...formik.getFieldProps("orderSummary")}
                   aria-label="Default select example"
-                >
-                  <option selected></option>
-                  <option value="One">One</option>
-                  <option value="Two">Two</option>
-                  <option value="Three">Three</option>
-                </select>
+                ></textarea>
               </div>
               {formik.touched.orderSummary && formik.errors.orderSummary && (
                 <div className=" text-danger">{formik.errors.orderSummary}</div>

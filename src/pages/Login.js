@@ -2,7 +2,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import React from "react";
 import Logo from "../assets/Yuaacart-Logo.png";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import api from "../config/URL";
 
@@ -13,6 +13,10 @@ const validationSchema = Yup.object({
 
 function Login({ onLogin }) {
   const navigate = useNavigate();
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const path = queryParams.get("path");
+  // console.log(path);
 
   const formik = useFormik({
     initialValues: {
@@ -32,7 +36,7 @@ function Login({ onLogin }) {
           toast.success("Login Successfully");
           sessionStorage.setItem("token", response.data.data.token);
           onLogin();
-          navigate("/checkout");
+          navigate(path);
         } else {
           toast.error(response.data.message);
         }
