@@ -35,8 +35,10 @@ function App() {
     remountHeader();
     sessionStorage.removeItem("token");
     sessionStorage.removeItem("isLoggedIn");
+    const formData = new FormData();
+    formData.append("Authorization", `Bearer ${token}`);
     try {
-      const response = await api.post(`auth/logout`, {
+      const response = await api.post(`auth/logout`, formData, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
